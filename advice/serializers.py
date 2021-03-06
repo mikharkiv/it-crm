@@ -12,7 +12,7 @@ class AdviceSerializer(serializers.ModelSerializer):
 
 # Including basic user information to display on frontend
 class AdviceUserSerializer(AdviceSerializer):
-	author = CRMUserTinySerializer()
+	author = CRMUserTinySerializer(read_only=True)
 
 
 # Serializer for truncating `text` attribute
@@ -32,7 +32,7 @@ class AdviceCommentSerializer(serializers.ModelSerializer):
 
 # Including basic user information to display on frontend
 class AdviceCommentUserSerializer(AdviceCommentSerializer):
-	author = CRMUserTinySerializer()
+	author = CRMUserTinySerializer(read_only=True)
 
 
 # Serializer for truncating `text` attribute

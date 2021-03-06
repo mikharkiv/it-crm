@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 	'users',
 	'advice',
 	'teams',
+	'documents',
 ]
 
 MIDDLEWARE = [
