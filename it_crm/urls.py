@@ -17,14 +17,17 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from advice.views import AdviceViewSet, AdviceCommentViewSet
+from teams.views import TeamViewSet
 
 router = routers.DefaultRouter()
 router.register(r'advice', AdviceViewSet)
 router.register(r'advice-comments', AdviceCommentViewSet)
+router.register(r'team', TeamViewSet)  # TODO
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
 	# Django Rest login and logout
 	path('api-auth/', include('rest_framework.urls')),
 	path('', include(router.urls)),
+	path('team/', include('teams.urls')),
 ]

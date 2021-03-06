@@ -36,7 +36,7 @@ class AdviceCommentViewSet(viewsets.ModelViewSet):
 
 	# If querying list - give truncated text
 	def list(self, request, *args, **kwargs):
-		queryset = Advice.objects.all()
+		queryset = AdviceComment.objects.all()
 		serializer = AdviceCommentListSerializer(queryset, many=True)
 		return Response(serializer.data)
 

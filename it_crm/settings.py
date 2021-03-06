@@ -26,6 +26,7 @@ INSTALLED_APPS = [
 	# Own apps
 	'users',
 	'advice',
+	'teams',
 ]
 
 MIDDLEWARE = [
