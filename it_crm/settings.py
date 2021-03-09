@@ -12,7 +12,8 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
 	'django.contrib.admin',
@@ -21,8 +22,11 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	# CORS
+	'corsheaders',
 	# Django Rest Framework
 	'rest_framework',
+	'django_filters',
 	# Own apps
 	'users',
 	'advice',
@@ -38,6 +42,8 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	# CORS
+	'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'it_crm.urls'
@@ -105,6 +111,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Rest Framework settings
 REST_FRAMEWORK = {
+	'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
+								'rest_framework.filters.SearchFilter',
+								'rest_framework.filters.OrderingFilter'],
 	'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-	'PAGE_SIZE': 10
+	'PAGE_SIZE': 10,
 }
+
+APPEND_SLASH = True

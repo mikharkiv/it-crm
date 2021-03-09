@@ -10,6 +10,9 @@ class Advice(models.Model):
 	text = models.TextField()
 	author = models.ForeignKey('users.CRMUser', null=True, on_delete=models.CASCADE, related_name='advices')
 
+	class Meta:
+		ordering = ['-created_at', 'name']
+
 	def get_short_text(self):
 		return truncatechars(self.text, 100)
 
@@ -22,6 +25,9 @@ class AdviceComment(models.Model):
 	text = models.TextField(max_length=1500)
 	created_at = models.DateTimeField(auto_now_add=True)
 	advice = models.ForeignKey('advice.Advice', on_delete=models.CASCADE, related_name='comments')
+
+	class Meta:
+		ordering = ['created_at']
 
 	def get_short_text(self):
 		return truncatechars(self.text, 100)

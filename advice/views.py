@@ -1,7 +1,7 @@
 from rest_framework import viewsets
-from advice.models import Advice, AdviceComment
 from advice.serializers import *
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 
 # TODO add serializers and endpoints for short-text view
@@ -9,6 +9,9 @@ from rest_framework.response import Response
 class AdviceViewSet(viewsets.ModelViewSet):
 	queryset = Advice.objects.all().order_by('-created_at')
 	serializer_class = AdviceSerializer
+	filterset_fields = '__all__'
+	ordering_fields = '__all__'
+	search_fields = ['name', 'theme', 'text', 'author__first_name', 'author__last_name']
 
 	def retrieve(self, request, *args, **kwargs):
 		instance = self.get_object()
@@ -17,8 +20,11 @@ class AdviceViewSet(viewsets.ModelViewSet):
 
 	# If querying list - give truncated text
 	def list(self, request, *args, **kwargs):
-		queryset = Advice.objects.all()
-		serializer = AdviceListSerializer(queryset, many=True)
+		queryset = self.filter_queryset(Advice.objects.all())
+		pagination = PageNumberPagination()
+		paginated_queryset = pagination.paginate_queryset(queryset, request)
+		serializer = AdviceListSerializer(paginated_queryset, many=True)
+		# return pagination.get_paginated_response(serializer.data)
 		return Response(serializer.data)
 
 	def perform_create(self, serializer):
@@ -28,6 +34,9 @@ class AdviceViewSet(viewsets.ModelViewSet):
 class AdviceCommentViewSet(viewsets.ModelViewSet):
 	queryset = AdviceComment.objects.all().order_by('-created_at')
 	serializer_class = AdviceCommentSerializer
+	filterset_fields = '__all__'
+	ordering_fields = '__all__'
+	search_fields = ['text', 'author__first_name', 'author__last_name']
 
 	def retrieve(self, request, *args, **kwargs):
 		instance = self.get_object()
@@ -36,7 +45,7 @@ class AdviceCommentViewSet(viewsets.ModelViewSet):
 
 	# If querying list - give truncated text
 	def list(self, request, *args, **kwargs):
-		queryset = AdviceComment.objects.all()
+		queryset = self.filter_queryset(AdviceComment.objects.all())
 		serializer = AdviceCommentListSerializer(queryset, many=True)
 		return Response(serializer.data)
 
