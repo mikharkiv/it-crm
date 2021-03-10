@@ -4,10 +4,8 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
 
-# TODO add serializers and endpoints for short-text view
-# TODO add advice, advice comments list short text view
 class AdviceViewSet(viewsets.ModelViewSet):
-	queryset = Advice.objects.all().order_by('-created_at')
+	queryset = Advice.objects.all()
 	serializer_class = AdviceSerializer
 	filterset_fields = '__all__'
 	ordering_fields = '__all__'
@@ -24,15 +22,14 @@ class AdviceViewSet(viewsets.ModelViewSet):
 		pagination = PageNumberPagination()
 		paginated_queryset = pagination.paginate_queryset(queryset, request)
 		serializer = AdviceListSerializer(paginated_queryset, many=True)
-		# return pagination.get_paginated_response(serializer.data)
-		return Response(serializer.data)
+		return pagination.get_paginated_response(serializer.data)
 
 	def perform_create(self, serializer):
 		serializer.save(author=self.request.user)
 
 
 class AdviceCommentViewSet(viewsets.ModelViewSet):
-	queryset = AdviceComment.objects.all().order_by('-created_at')
+	queryset = AdviceComment.objects.all()
 	serializer_class = AdviceCommentSerializer
 	filterset_fields = '__all__'
 	ordering_fields = '__all__'

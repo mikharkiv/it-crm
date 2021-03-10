@@ -4,14 +4,18 @@ from rest_framework import routers
 from advice.views import AdviceViewSet, AdviceCommentViewSet
 from teams.views import TeamViewSet
 from documents.views import DocumentViewSet
+from clients.views import ClientViewSet, ClientStatusViewSet, ContactPersonViewSet
 from django.conf import settings
 from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 router.register(r'advice', AdviceViewSet)
 router.register(r'advice-comments', AdviceCommentViewSet)
-router.register(r'team', TeamViewSet)
+router.register(r'teams', TeamViewSet)
 router.register(r'documents', DocumentViewSet)
+router.register(r'clients', ClientViewSet)
+router.register(r'contacts', ContactPersonViewSet)
+router.register(r'clients-statuses', ClientStatusViewSet)
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
