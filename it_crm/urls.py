@@ -5,6 +5,7 @@ from advice.views import AdviceViewSet, AdviceCommentViewSet
 from teams.views import TeamViewSet
 from documents.views import DocumentViewSet
 from clients.views import ClientViewSet, ClientStatusViewSet, ContactPersonViewSet
+from projects.views import ProjectViewSet
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -16,6 +17,7 @@ router.register(r'documents', DocumentViewSet)
 router.register(r'clients', ClientViewSet)
 router.register(r'contacts', ContactPersonViewSet)
 router.register(r'clients-statuses', ClientStatusViewSet)
+router.register(r'projects', ProjectViewSet)
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
