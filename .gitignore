@@ -32,3 +32,5 @@ uploads/
 /env/
 /output/
 /cache/
+
+media/*
