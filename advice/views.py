@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from advice.serializers import *
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from it_crm.utils import CrmPagination
 
 
 class AdviceViewSet(viewsets.ModelViewSet):
@@ -19,7 +20,7 @@ class AdviceViewSet(viewsets.ModelViewSet):
 	# If querying list - give truncated text
 	def list(self, request, *args, **kwargs):
 		queryset = self.filter_queryset(Advice.objects.all())
-		pagination = PageNumberPagination()
+		pagination = CrmPagination()
 		paginated_queryset = pagination.paginate_queryset(queryset, request)
 		serializer = AdviceListSerializer(paginated_queryset, many=True)
 		return pagination.get_paginated_response(serializer.data)

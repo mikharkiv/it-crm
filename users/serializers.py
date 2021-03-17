@@ -3,6 +3,15 @@ from rest_framework import serializers
 
 
 class CRMUserSerializer(serializers.ModelSerializer):
+	full_name = serializers.SerializerMethodField()
+	# avatar = serializers.SerializerMethodField()
+
+	def get_full_name(self, obj):
+		return obj.get_full_name()
+
+	def get_avatar(self, obj):
+		return self.context['request'].build_absolute_uri(obj.photo.src)
+
 	class Meta:
 		model = CRMUser
 		read_only = ['id', 'is_superuser', 'is_staff', 'is_active', 'date_joined', 'last_login',
@@ -11,8 +20,7 @@ class CRMUserSerializer(serializers.ModelSerializer):
 					'groups', 'user_permissions', 'password']
 
 
-class CRMUserTinySerializer(serializers.ModelSerializer):
-	class Meta:
-		model = CRMUser
-		# exclude = CRMUserSerializer.Meta.exclude + ['email', 'gender', 'date_of_birth', 'phone', 'position']
-		fields = ['id', 'first_name', 'last_name', 'image']
+class CRMUserTinySerializer(CRMUserSerializer):
+	class Meta(CRMUserSerializer.Meta):
+		exclude = []
+		fields = ['id', 'first_name', 'last_name', 'image', 'full_name']#, 'avatar']

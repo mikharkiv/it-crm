@@ -12,7 +12,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+	# CORS
+	'corsheaders.middleware.CorsMiddleware',
+	'django.middleware.common.CommonMiddleware',
+	# common
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
@@ -45,8 +49,6 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	# CORS
-	'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'it_crm.urls'
@@ -117,8 +119,18 @@ REST_FRAMEWORK = {
 	'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
 								'rest_framework.filters.SearchFilter',
 								'rest_framework.filters.OrderingFilter'],
-	'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+	'DEFAULT_PAGINATION_CLASS': 'it_crm.utils.CrmPagination',
 	'PAGE_SIZE': 10,
+	'DATETIME_FORMAT': "%d.%m.%Y %H:%M",
+	'DATE_FORMAT': "%d.%m.%Y",
+	'DEFAULT_AUTHENTICATION_CLASSES': [
+		'rest_framework.authentication.SessionAuthentication',
+		'rest_framework.authentication.BasicAuthentication',
+		'rest_framework_simplejwt.authentication.JWTAuthentication',
+	],
+	'DEFAULT_PERMISSION_CLASSES': [
+		'rest_framework.permissions.IsAuthenticated'
+	]
 }
 
 APPEND_SLASH = True
