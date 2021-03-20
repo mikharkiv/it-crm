@@ -17,7 +17,7 @@ export class ClientsAPI {
 
 	static async addClient(client) {
 		return await Api.fetch(`${this.apiUrl}`,
-			Object.assign(Api.postJson, {body: JSON.stringify(client)}))
+			Object.assign({}, Api.postJson, {body: JSON.stringify(client)}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	}
@@ -30,9 +30,16 @@ export class ClientsAPI {
 
 	static async modifyClient(id, client) {
 		return await Api.fetch(`${this.apiUrl}${id}/`,
-			Object.assign(Api.putJson, {body: JSON.stringify(client)}))
+			Object.assign({}, Api.putJson, {body: JSON.stringify(client)}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	};
+
+	static async updatePhoto(id, photoObj) {
+		return await Api.fetch(`${this.apiUrl}${id}/`,
+			Object.assign({}, Api.put, {body: Api.makeFormData(photoObj)}))
+			.then((r) => r.json())
+			.catch(() => "error");
+	}
 
 }

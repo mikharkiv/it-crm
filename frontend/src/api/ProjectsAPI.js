@@ -17,7 +17,7 @@ export class ProjectsAPI {
 
 	static async addProject(project) {
 		return await Api.fetch(`${this.apiUrl}`,
-			Object.assign(Api.postJson, {body: JSON.stringify(project)}))
+			Object.assign({}, Api.postJson, {body: JSON.stringify(project)}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	}
@@ -30,7 +30,7 @@ export class ProjectsAPI {
 
 	static async modifyProject(id, project) {
 		return await Api.fetch(`${this.apiUrl}${id}/`,
-			Object.assign(Api.putJson, {body: JSON.stringify(project)}))
+			Object.assign({}, Api.putJson, {body: JSON.stringify(project)}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	};

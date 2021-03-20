@@ -17,7 +17,7 @@ export class ContactsAPI {
 
 	static async addContact(contact) {
 		return await Api.fetch(`${this.apiUrl}`,
-			Object.assign(Api.postJson, {body: JSON.stringify(contact)}))
+			Object.assign({}, Api.postJson, {body: JSON.stringify(contact)}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	}
@@ -29,10 +29,19 @@ export class ContactsAPI {
 	};
 
 	static async modifyContact(id, contact) {
+		console.log(Api.putJson);
+		console.log(Object.assign({}, Api.putJson, {body: JSON.stringify(contact)}));
 		return await Api.fetch(`${this.apiUrl}${id}/`,
 			Object.assign(Api.putJson, {body: JSON.stringify(contact)}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	};
+
+	static async updatePhoto(id, photoObj) {
+		return await Api.fetch(`${this.apiUrl}${id}/`,
+			Object.assign({}, Api.put, {body: Api.makeFormData(photoObj)}))
+			.then((r) => r.json())
+			.catch(() => "error");
+	}
 
 }

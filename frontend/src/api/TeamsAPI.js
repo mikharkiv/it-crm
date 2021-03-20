@@ -20,7 +20,7 @@ export class TeamsAPI {
 
 	static async addTeam(name, description, members, teamlead) {
 		return await Api.fetch(`${this.apiUrl}`,
-			Object.assign(Api.postJson, {body: JSON.stringify({name, description, members, teamlead})}))
+			Object.assign({}, Api.postJson, {body: JSON.stringify({name, description, members, teamlead})}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	}
@@ -33,7 +33,7 @@ export class TeamsAPI {
 
 	static async modifyTeam(id, name, description, members, teamlead) {
 		return await Api.fetch(`${this.apiUrl}${id}/`,
-			Object.assign(Api.putJson, {body: JSON.stringify({id, name, description, members, teamlead})}))
+			Object.assign({}, Api.putJson, {body: JSON.stringify({id, name, description, members, teamlead})}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	};

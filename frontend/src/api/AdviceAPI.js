@@ -24,14 +24,14 @@ export class AdviceAPI {
 
 	static async publishComment(adviceId, text) {
 		return Api.fetch(`${this.commentsApiUrl}`,
-			Object.assign(Api.postJson, {body: JSON.stringify({text, advice: adviceId})}))
+			Object.assign({}, Api.postJson, {body: JSON.stringify({text, advice: adviceId})}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	}
 
 	static async publishAdvice(name, theme, text) {
 		return Api.fetch(`${this.apiUrl}`,
-			Object.assign(Api.postJson, {body: JSON.stringify({name, theme, text})}))
+			Object.assign({}, Api.postJson, {body: JSON.stringify({name, theme, text})}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	}

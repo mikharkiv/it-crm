@@ -7,9 +7,11 @@ export class Api {
 	static put = {'method': 'PUT'};
 	static delete = {'method': 'DELETE'};
 	static json = {'Content-Type': 'application/json'};
-	static postJson = Object.assign(Api.post, {'headers': Api.json});
-	static putJson = Object.assign(Api.put, {'headers': Api.json});
-	static deleteJson = Object.assign(Api.delete, {'headers': Api.json});
+	static formData = {'Content-Type': 'multipart/form-data'};
+	static postJson = Object.assign({}, Api.post, {'headers': Api.json});
+	static putJson = Object.assign({}, Api.put, {'headers': Api.json});
+	static deleteJson = Object.assign({}, Api.delete, {'headers': Api.json});
+	static putFormData = Object.assign({}, Api.put, {'headers': Api.formData});
 
 	static getLink(url, params) {
 		let link = new URL(url);
@@ -23,12 +25,13 @@ export class Api {
 	static async fetch(url, params) {
 		if (!params) params = {};
 		if (!params.headers) params.headers = {};
-		return await Api.fetchNoToken(url, Object.assign(params,
+		return await Api.fetchNoToken(url, Object.assign({}, params,
 			{headers: Object.assign(params.headers,
 					{'Authorization': `Bearer ${localStorage.getItem('token')}`})}));
 	}
 
 	static async fetchNoToken(url, params) {
+		console.log(params);
 		return await fetch(url, params).then((r) => {
 			if (r.ok)
 				return r;
@@ -41,5 +44,12 @@ export class Api {
 				return Response.error();
 			}
 		}).catch((e) => console.log(e));
+	}
+
+	static makeFormData(obj) {
+		let data = new FormData();
+		for (let key of Object.keys(obj))
+			data.append(key, obj[key]);
+		return data;
 	}
 }
