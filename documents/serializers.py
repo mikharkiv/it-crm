@@ -22,6 +22,11 @@ class DocumentSerializer(serializers.ModelSerializer):
 		read_only_fields = ['created_at', 'updated_at', 'author']
 
 
+class DocumentUpdateSerializer(DocumentSerializer):
+	file = serializers.FileField(required=False)
+
+
+
 class DocumentDetailSerializer(DocumentSerializer):
 	author = CRMUserTinySerializer(read_only=True)
 	client = ClientSerializer()

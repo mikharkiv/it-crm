@@ -1,10 +1,19 @@
 from rest_framework import viewsets
-from .models import Document
-from .serializers import DocumentSerializer, DocumentDetailSerializer
+from .serializers import *
+from django_filters import FilterSet
+
+
+class DocumentFilterSet(FilterSet):
+	class Meta:
+		model = Document
+		exclude = ['file']
 
 
 class DocumentViewSet(viewsets.ModelViewSet):
 	queryset = Document.objects.all()
+	filterset_class = DocumentFilterSet
+	ordering_fields = '__all__'
+	search_fields = ['name', 'description', '$file', 'author__first_name', 'author__last_name']
 
 	def pre_save(self, obj):
 		obj.file = self.request.FILES.get('file')
@@ -15,4 +24,6 @@ class DocumentViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action == "list" or self.action == "retrieve":
 			return DocumentDetailSerializer
+		if self.action == "update":
+			return DocumentUpdateSerializer
 		return DocumentSerializer
