@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import './styles/App.css';
+import LoginPage from "./components/LoginPage";
+import {observer} from "mobx-react";
+import {Switch, Route} from "react-router-dom";
+import MainLayout from "./components/MainLayout";
+import PrivateRoute from "./components/PrivateRoute";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+	return (
+		<Switch>
+			<Route exact path="/login" component={LoginPage}/>
+			<PrivateRoute path="">
+				<MainLayout/>
+			</PrivateRoute>
+		</Switch>
+	);
 }
 
-export default App;
+export default observer(App);
