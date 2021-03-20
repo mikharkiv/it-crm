@@ -35,7 +35,8 @@ const TeamAutocomplete = (props) => {
 	return (
 		<AutoComplete placeholder="Почніть писати, щоб побачити варіанти..."
 		              onSelect={props.onSelect}
-		              onChange={store.onChange} >
+		              onChange={store.onChange}
+		              defaultValue={props.value} >
 			{ store.variants.map((e) => (
 				<AutoComplete.Option key={e.id} value={e.name}>
 					{e.name}

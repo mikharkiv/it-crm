@@ -1,11 +1,11 @@
 import {makeAutoObservable} from "mobx";
 import {AutoComplete} from "antd";
-import UserBar from "./../UserBar";
 import {observer} from "mobx-react";
 import {useMemo} from "react";
-import {ClientsAPI} from "../../api/ClientsAPI";
+import {ProjectsAPI} from "../../api/ProjectsAPI";
+import {TasksAPI} from "../../api/TasksAPI";
 
-export class ClientAutocompleteStore {
+class ProjectAutocompleteStore {
 	variants = [];
 	state = "idle";
 
@@ -16,7 +16,7 @@ export class ClientAutocompleteStore {
 	*fetchVariants(query) {
 		this.variants = [];
 		this.state = "loading";
-		yield ClientsAPI.getClients({search: query}).then((r) => {
+		yield TasksAPI.getTasks({search: query}).then((r) => {
 			if (r !== "error") {
 				this.state = "done";
 				this.variants = r.results;
@@ -30,21 +30,21 @@ export class ClientAutocompleteStore {
 	}
 }
 
-const ClientAutocomplete = (props) => {
-	const store = useMemo(() => new ClientAutocompleteStore(), []);
+const TaskAutocomplete = (props) => {
+	const store = useMemo(() => new ProjectAutocompleteStore(), []);
 
 	return (
 		<AutoComplete placeholder="Почніть писати, щоб побачити варіанти..."
 		              onSelect={props.onSelect}
 		              onChange={store.onChange}
-		              defaultValue={props.value} >
+		              defaultValue={props.value}>
 			{ store.variants.map((e) => (
 				<AutoComplete.Option key={e.id} value={e.name}>
-					<UserBar size="small" name={e.name} avatar={e.image}/>
+					{e.name}
 				</AutoComplete.Option>
 			))}
 		</AutoComplete>
 	);
 }
 
-export default observer(ClientAutocomplete);
+export default observer(TaskAutocomplete);

@@ -8,7 +8,7 @@ export class MainLayoutStore {
 		'/projects/',
 		'/',
 		'/teams/',
-		'/',
+		'/documents/',
 		'/',
 		'/advice/',
 		'/',

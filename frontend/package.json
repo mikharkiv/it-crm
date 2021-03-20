@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
     "antd": "^4.13.1",
+    "filesize": "^6.1.0",
     "mobx": "^6.1.8",
     "mobx-react": "^7.1.0",
     "react": "^17.0.1",

@@ -23,6 +23,7 @@ import {useStores} from "../hooks/use-stores";
 import TeamsView from "./teams/TeamsView";
 import ContactsView from "./contacts/ContactsView";
 import ProjectsView from "./projects/ProjectsView";
+import DocumentsView from "./documents/DocumentsView";
 
 const { Content, Sider } = Layout;
 
@@ -62,6 +63,7 @@ const MainLayout = () => {
 						<Route path={`${path}teams`} component={TeamsView}/>
 						<Route path={`${path}contacts`} component={ContactsView}/>
 						<Route path={`${path}projects`} component={ProjectsView}/>
+						<Route path={`${path}documents`} component={DocumentsView}/>
 					</Switch>
 				</div>
 			</Content>

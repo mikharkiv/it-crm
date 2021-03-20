@@ -16,7 +16,7 @@ export class DocumentsAPI {
 	}
 
 	static async addDocument(document) {
-		return await Api.fetch(`${this.apiUrl}/`,
+		return await Api.fetch(`${this.apiUrl}`,
 			Object.assign({}, Api.post, {body: Api.makeFormData(document)}))
 			.then((r) => r.json())
 			.catch(() => "error");
@@ -29,7 +29,7 @@ export class DocumentsAPI {
 	}
 
 	static async modifyDocument(id, document) {
-		return await Api.fetch(`${this.apiUrl}/`,
+		return await Api.fetch(`${this.apiUrl}${id}/`,
 			Object.assign({}, Api.put, {body: Api.makeFormData(document)}))
 			.then((r) => r.json())
 			.catch(() => "error");

@@ -37,10 +37,10 @@ const UserAutocomplete = (props) => {
 		<AutoComplete placeholder="Почніть писати, щоб побачити варіанти..."
 		              onSelect={props.onSelect}
 		              onChange={store.onChange}
-					  value={props.value}>
+					  defaultValue={props.value}>
 			{ store.variants.map((e) => (
-				<AutoComplete.Option key={e.id} value={e.name}>
-					<UserBar size="small" name={e.name} avatar={e.image}/>
+				<AutoComplete.Option key={e.id} value={e.full_name}>
+					<UserBar size="small" name={e.full_name} avatar={e.image}/>
 				</AutoComplete.Option>
 			))}
 		</AutoComplete>
