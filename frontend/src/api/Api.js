@@ -31,19 +31,26 @@ export class Api {
 	}
 
 	static async fetchNoToken(url, params) {
-		console.log(params);
-		return await fetch(url, params).then((r) => {
-			if (r.ok)
-				return r;
-			else {
-				if (r.status === 401 || r.status === 403)
-					runInAction(() => {globalStores.rootStore.isLoggedIn = false});
-				else if (r.status >= 500)
+		try {
+			return fetch(url, params).then((r) => {
+				if (!r) {
 					runInAction(() => {globalStores.rootStore.isApiAvailable = false});
-				else return r;
-				return Response.error();
-			}
-		}).catch((e) => console.log(e));
+					return Response.error();
+				}
+				if (r.ok)
+					return r;
+				else {
+					if (r.status === 401 || r.status === 403)
+						runInAction(() => {globalStores.rootStore.isLoggedIn = false});
+					else if (r.status >= 500)
+						runInAction(() => {globalStores.rootStore.isApiAvailable = false});
+					else return r;
+					return Response.error();
+				}
+			}).catch((e) => console.log(e));
+		} catch (e) {
+			runInAction(() => {globalStores.rootStore.isApiAvailable = false});
+		}
 	}
 
 	static makeFormData(obj) {

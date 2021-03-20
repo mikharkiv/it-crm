@@ -11,3 +11,16 @@
 .page .ant-page-header {
 	padding-left: 0;
 }
+
+.api-unavailable {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: red;
+	width: 100vw;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}

@@ -1,4 +1,5 @@
 import {makeAutoObservable} from "mobx";
+import {Api} from "../api/Api";
 
 export class RootStore {
 	// login logics
@@ -19,7 +20,7 @@ export class RootStore {
 		if (localStorage.length === 0) return;
 		let token = localStorage.getItem('token');
 		if (!token) return;
-		fetch('http://localhost:8000/api/token/verify/', {
+		Api.fetchNoToken('http://localhost:8000/api/token/verify/', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json',
 				'Authorization': `Bearer ${token}`
@@ -39,7 +40,7 @@ export class RootStore {
 	}
 
 	*doLogin(email, password, callback) {
-		yield fetch('http://localhost:8000/api/token/', {
+		yield Api.fetchNoToken('http://localhost:8000/api/token/', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email: email, password: password})
