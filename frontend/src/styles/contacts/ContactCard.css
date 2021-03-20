@@ -1,0 +1,13 @@
+.contact-card {
+  display: block;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+}
+.contact-card-client {
+  display: block;
+  margin: 15px 0 5px;
+}
+
+/*# sourceMappingURL=ContactCard.css.map */
