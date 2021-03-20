@@ -4,15 +4,19 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from .models import Team
 from users.models import CRMUser
-from .serializers import TeamSerializer
+from .serializers import TeamSerializer, TeamUserSerializer
 
 
 class TeamViewSet(viewsets.ModelViewSet):
 	queryset = Team.objects.all().order_by('-name')
-	serializer_class = TeamSerializer
 	filterset_fields = '__all__'
 	ordering_fields = '__all__'
 	search_fields = ['name', 'description', 'teamlead__first_name', 'teamlead__last_name']
+
+	def get_serializer_class(self):
+		if self.action == "list" or self.action == "retrieve":
+			return TeamUserSerializer
+		return TeamSerializer
 
 
 @api_view(['POST'])
