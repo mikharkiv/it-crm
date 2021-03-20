@@ -9,6 +9,9 @@ class Document(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	author = models.ForeignKey('users.CRMUser', null=True, on_delete=models.CASCADE, related_name='documents')
+	client = models.ForeignKey('clients.Client', null=True, on_delete=models.CASCADE, related_name='documents')
+	task = models.ForeignKey('tasks.ProjectTask', null=True, on_delete=models.CASCADE, related_name='documents')
+	project = models.ForeignKey('projects.Project', null=True, on_delete=models.CASCADE, related_name='documents')
 
 	class Meta:
 		ordering = ['-created_at', 'name']
