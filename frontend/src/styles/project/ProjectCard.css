@@ -1,0 +1,13 @@
+.project-card {
+  display: block;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+}
+.project-card-text {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/*# sourceMappingURL=ProjectCard.css.map */
