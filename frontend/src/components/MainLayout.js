@@ -37,7 +37,15 @@ const MainLayout = () => {
 	return (
 		<Layout>
 			<Sider>
-				<Menu mode="inline" theme="dark" style={{height: "100vh"}} onClick={({key}) => {history.push(store.menuItemClickPath(key))}}>
+				<Menu mode="inline" theme="dark" style={{height: "100vh"}} onClick={
+					({key}) => {
+						console.log(key);
+						if (key === 10)
+							rootStore.logout();
+						else
+							history.push(store.menuItemClickPath(key));
+					}
+				}>
 					<Menu.Item key="0" icon={<HomeOutlined/>}>Головна</Menu.Item>
 					<Menu.Item key="1" icon={<UserOutlined/>}>Клієнти</Menu.Item>
 					<Menu.Item key="2" icon={<ContactsOutlined/>}>Контакти</Menu.Item>
@@ -45,7 +53,7 @@ const MainLayout = () => {
 					<Menu.Item key="4" icon={<CarryOutOutlined/>}>Задачі</Menu.Item>
 					<Menu.Item key="5" icon={<TeamOutlined/>}>Команди</Menu.Item>
 					<Menu.Item key="6" icon={<FileOutlined/>}>Документи</Menu.Item>
-					<Menu.Item key="7" icon={<LineChartOutlined/>}>Бюджет</Menu.Item>
+					<Menu.Item key="7" icon={<LineChartOutlined/>}>Статистика</Menu.Item>
 					<Menu.Item key="8" icon={<BulbOutlined/>}>Порадник</Menu.Item>
 					<Menu.Item key="9" icon={<SettingOutlined/>}>Налаштування</Menu.Item>
 					<Menu.Item key="10" icon={<LogoutOutlined/>}>Вийти</Menu.Item>

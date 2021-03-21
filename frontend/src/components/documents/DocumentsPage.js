@@ -18,7 +18,7 @@ const DocumentsPage = () => {
 	const { path, url } = useRouteMatch();
 
 	useEffect(action(() => {
-		runInAction(() => rootStore.setupHeading(false, "Команди", ""));
+		runInAction(() => rootStore.setupHeading(false, "Документи", ""));
 		store.fetchDocuments();
 	}), []);
 

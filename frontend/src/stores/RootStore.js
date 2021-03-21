@@ -1,8 +1,9 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, runInAction} from "mobx";
 import {Api} from "../api/Api";
 
 export class RootStore {
 	// login logics
+	state = "idle";
 	isApiAvailable = true;
 	isLoggedIn = false;
 	errorLoggingIn = undefined;
@@ -36,6 +37,7 @@ export class RootStore {
 				this.errorLoggingIn = true;
 				return Response.error();
 			}
+			this.state = "inited";
 		});
 	}
 
@@ -66,5 +68,13 @@ export class RootStore {
 		this.canGoBack = canBack;
 		this.pageHeaderTitle = title;
 		this.pageHeaderSecondary = secondary;
+	}
+
+	logout = () => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('refresh');
+		this.errorLoggingIn = false;
+		this.isLoggedIn = false;
+		console.log('logged out');
 	}
 }
