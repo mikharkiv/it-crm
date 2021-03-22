@@ -2,7 +2,13 @@ from django_filters import FilterSet
 from rest_framework import viewsets, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.utils.serializer_helpers import ReturnDict
 
+from advice.models import Advice
+from clients.models import Client
+from documents.models import Document
+from tasks.models import ProjectTask, PersonApproval
+from teams.models import Team
 from .serializers import CRMUserSerializer
 from .models import CRMUser
 
@@ -24,3 +30,16 @@ class CRMUserViewSet(viewsets.ReadOnlyModelViewSet):
 @api_view()
 def get_me(request):
 	return Response(CRMUserSerializer(request.user).data)
+
+
+@api_view()
+def get_my_stats(request):
+	user = request.user
+	stats = dict()
+	stats['clients_count'] = Client.objects.filter(manager=user).count()  # TODO add proj count
+	stats['advice_count'] = Advice.objects.filter(author=user).count()
+	stats['tasks_count'] = user.tasks.count()
+	stats['tasks_created_count'] = ProjectTask.objects.filter(author=user).count()
+	stats['teams_count'] = user.teams.count()
+	stats['documents_count'] = Document.objects.filter(author=user).count()
+	return Response(stats)
