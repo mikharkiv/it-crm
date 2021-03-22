@@ -18,7 +18,6 @@ export class ProjectStore {
 			.then((r) => {
 				if (r !== "error") {
 					this.project = r;
-					console.log(r);
 					this.state = "done";
 				} else this.state = "error";
 			})

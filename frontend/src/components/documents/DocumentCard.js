@@ -12,7 +12,6 @@ const AntLink = Typography.Link;
 const DocumentCard = (props) => {
 	return (
 		<Space direction="vertical" className="document-card">
-			{console.log(props.document)}
 			<Title level={3} style={{marginBottom: "0px"}}>
 				<Link to={`${props.url}${props.document.id}`}>{props.document.name}</Link>
 			</Title>

@@ -29,8 +29,6 @@ export class ContactsAPI {
 	};
 
 	static async modifyContact(id, contact) {
-		console.log(Api.putJson);
-		console.log(Object.assign({}, Api.putJson, {body: JSON.stringify(contact)}));
 		return await Api.fetch(`${this.apiUrl}${id}/`,
 			Object.assign(Api.putJson, {body: JSON.stringify(contact)}))
 			.then((r) => r.json())

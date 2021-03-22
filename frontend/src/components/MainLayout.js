@@ -24,6 +24,7 @@ import TeamsView from "./teams/TeamsView";
 import ContactsView from "./contacts/ContactsView";
 import ProjectsView from "./projects/ProjectsView";
 import DocumentsView from "./documents/DocumentsView";
+import TasksView from "./tasks/TasksView";
 
 const { Content, Sider } = Layout;
 
@@ -39,7 +40,6 @@ const MainLayout = () => {
 			<Sider>
 				<Menu mode="inline" theme="dark" style={{height: "100vh"}} onClick={
 					({key}) => {
-						console.log(key);
 						if (key === 10)
 							rootStore.logout();
 						else
@@ -72,6 +72,7 @@ const MainLayout = () => {
 						<Route path={`${path}contacts`} component={ContactsView}/>
 						<Route path={`${path}projects`} component={ProjectsView}/>
 						<Route path={`${path}documents`} component={DocumentsView}/>
+						<Route path={`${path}tasks`} component={TasksView}/>
 					</Switch>
 				</div>
 			</Content>

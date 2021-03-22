@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import {Api} from "../api/Api";
+import {UsersAPI} from "../api/UsersAPI";
 
 export class RootStore {
 	// login logics
@@ -11,6 +12,8 @@ export class RootStore {
 	pageHeaderTitle = "";
 	pageHeaderSecondary = "";
 	canGoBack = true;
+
+	me = null;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -61,6 +64,8 @@ export class RootStore {
 			this.isLoggedIn = true;
 			if (callback)
 				callback.call();
+
+			UsersAPI.getMe().then((r) => {if (r !== "error") this.me = r}); // get curr user
 		});
 	}
 

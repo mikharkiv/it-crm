@@ -34,4 +34,11 @@ export class TasksAPI {
 			.then((r) => r.json())
 			.catch(() => "error");
 	};
+
+	static async setTaskCompleted(taskId, completed) {
+		return await Api.fetch(`${this.apiUrl}${taskId}/setcompleted`,
+			Object.assign({}, Api.postJson, {body: JSON.stringify({is_completed: completed})}))
+			.then((r) => r.json())
+			.catch(() => "error");
+	}
 }

@@ -14,4 +14,10 @@ export class UsersAPI {
 			.then((r) => r.json())
 			.catch(() => "error");
 	}
+
+	static async getMe() {
+		return Api.fetch(`${this.apiUrl}me`)
+			.then((r) => r.json())
+			.catch(() => "error");
+	}
 }

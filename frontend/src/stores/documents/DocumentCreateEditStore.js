@@ -73,8 +73,6 @@ export class DocumentCreateEditStore {
 		if (obj.hasOwnProperty('project') && obj.project)
 			out.project = obj.project.name;
 		out = Object.assign({}, obj, out)
-		console.log(obj);
-		console.log(out);
 		return out;
 	}
 

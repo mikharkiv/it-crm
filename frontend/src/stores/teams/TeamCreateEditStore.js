@@ -45,7 +45,6 @@ export class TeamCreateEditStore {
 				if (r !== "error") {
 					runInAction(() => {
 						this.membListState = "done";
-						console.log(r.results);
 						this.membersToDisplayInList = r.results;
 						this.membersCache = r.results;
 					});
@@ -57,7 +56,6 @@ export class TeamCreateEditStore {
 		yield TeamsAPI.addTeam(name, description, this.members.map((e) => e.id), this.teamlead_id)
 			.then((r) => {
 				if (r !== "error") {
-					console.log(r);
 					callback(r.id);
 				} else this.membListState = "error";
 			})

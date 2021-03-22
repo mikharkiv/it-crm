@@ -6,7 +6,7 @@ export class MainLayoutStore {
 		'/',
 		'/contacts/',
 		'/projects/',
-		'/',
+		'/tasks/',
 		'/teams/',
 		'/documents/',
 		'/',

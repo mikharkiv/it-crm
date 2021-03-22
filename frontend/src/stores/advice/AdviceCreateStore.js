@@ -16,7 +16,6 @@ export class AdviceCreateStore {
 		this.isAdding = true;
 		yield AdviceAPI.publishAdvice(name, theme, text)
 			.then((r) => {
-				console.log(r.id)
 				callback.call(null, r.id)
 			})
 			.catch(() => this.state = "error")
