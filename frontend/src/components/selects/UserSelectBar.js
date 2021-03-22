@@ -9,18 +9,22 @@ export class UserAutocompleteStore {
 	variants = [];
 	state = "idle";
 	variantsCallback = null;
+	onlyManager = false;
 
-	constructor(variantsCallback) {
+	constructor(variantsCallback, onlyManager) {
 		makeAutoObservable(this, {
 			onChange: action
 		});
 		this.variantsCallback = variantsCallback;
+		this.onlyManager = onlyManager;
 	}
 
 	*fetchVariants(query) {
 		this.variants = [];
 		this.state = "loading";
-		yield UsersAPI.getUsers({search: query}).then((r) => {
+		const params = {search: query};
+		if (this.onlyManager) params['position'] = 'MA';
+		yield UsersAPI.getUsers(params).then((r) => {
 			if (r !== "error") {
 				this.state = "done";
 				runInAction(() => this.variants = r.results);
@@ -36,7 +40,7 @@ export class UserAutocompleteStore {
 }
 
 const UserAutocomplete = (props) => {
-	const store = useMemo(() => new UserAutocompleteStore(props.variantsCallback), []);
+	const store = useMemo(() => new UserAutocompleteStore(props.variantsCallback, props.onlyManager), []);
 
 	const [val, setVal] = useState('');
 
@@ -55,7 +59,7 @@ const UserAutocomplete = (props) => {
 		<AutoComplete placeholder="Почніть писати, щоб побачити варіанти..."
 		              onSelect={onSelect}
 		              onChange={onValChange}
-					  defaultValue={props.value} value={val}>
+					  defaultValue={props.value} value={props.clearAfterSelect && val}>
 			{ store.variants.map((e) => (
 				<AutoComplete.Option key={e.id} value={e.full_name}>
 					<UserBar size="small" name={e.full_name} avatar={e.image}/>

@@ -3,7 +3,7 @@ import {makeAutoObservable} from "mobx";
 export class MainLayoutStore {
 	paths = [
 		'/',
-		'/',
+		'/clients/',
 		'/contacts/',
 		'/projects/',
 		'/tasks/',
