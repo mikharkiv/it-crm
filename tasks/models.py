@@ -20,7 +20,11 @@ class ProjectTask(models.Model):
 		return self.name
 
 	def is_completed(self):
-		return not self.attached_persons.filter(is_completed=False).exists()
+		return not PersonApproval.objects.filter(
+			task=self,
+			is_completed=False
+		).exists()
+		# return not self.attached_persons.filter(is_completed=False).exists()
 
 	def get_client(self):
 		return self.project.client

@@ -1,5 +1,8 @@
 from django_filters import FilterSet
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from .serializers import CRMUserSerializer
 from .models import CRMUser
 
@@ -16,3 +19,8 @@ class CRMUserViewSet(viewsets.ReadOnlyModelViewSet):
 	filterset_class = CRMUserFilterSet
 	ordering_fields = '__all__'
 	search_fields = ['first_name', 'last_name', 'email', 'phone']
+
+
+@api_view()
+def get_me(request):
+	return Response(CRMUserSerializer(request.user).data)
