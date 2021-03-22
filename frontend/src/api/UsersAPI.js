@@ -20,4 +20,10 @@ export class UsersAPI {
 			.then((r) => r.json())
 			.catch(() => "error");
 	}
+
+	static async getMyStats() {
+		return Api.fetch(`${this.apiUrl}my-stats`)
+			.then((r) => r.json())
+			.catch(() => "error");
+	}
 }

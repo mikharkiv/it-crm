@@ -26,6 +26,7 @@ import ProjectsView from "./projects/ProjectsView";
 import DocumentsView from "./documents/DocumentsView";
 import TasksView from "./tasks/TasksView";
 import ClientsView from "./clients/ClientsView";
+import StatsPage from "./stats/StatsPage";
 
 const { Content, Sider } = Layout;
 
@@ -75,6 +76,7 @@ const MainLayout = () => {
 						<Route path={`${path}documents`} component={DocumentsView}/>
 						<Route path={`${path}tasks`} component={TasksView}/>
 						<Route path={`${path}clients`} component={ClientsView}/>
+						<Route path={`${path}stats`} component={StatsPage}/>
 					</Switch>
 				</div>
 			</Content>

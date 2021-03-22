@@ -9,7 +9,7 @@ export class MainLayoutStore {
 		'/tasks/',
 		'/teams/',
 		'/documents/',
-		'/',
+		'/stats/',
 		'/advice/',
 		'/',
 		'/',
