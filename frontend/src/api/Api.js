@@ -14,11 +14,18 @@ export class Api {
 	static putFormData = Object.assign({}, Api.put, {'headers': Api.formData});
 
 	static getLink(url, params) {
+		console.log(params);
 		let link = new URL(url);
 		if (params) {
 			if (params.hasOwnProperty('page') && params.page > 1) link.searchParams.append('page', params.page);
 			if (params.hasOwnProperty('search') && params.search) link.searchParams.append('search', params.search);
+
+			for (let key of Object.keys(params)) {
+				if (key !== 'page' && key !== 'search')
+					link.searchParams.append(key, params[key]);
+			}
 		}
+		console.log(link.toString());
 		return link.toString();
 	}
 

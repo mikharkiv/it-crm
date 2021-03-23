@@ -8,14 +8,17 @@ export class DocumentsStore {
 	totalPages = 1;
 	searchQuery = "";
 
-	constructor() {
+	filters = {};
+
+	constructor(filters) {
 		makeAutoObservable(this);
+		if (filters) this.filters = filters;
 	}
 
 	*fetchDocuments() {
 		this.documents = [];
 		this.state = "loading";
-		yield DocumentsAPI.getDocuments({page: this.page, search: this.searchQuery})
+		yield DocumentsAPI.getDocuments(Object.assign({page: this.page, search: this.searchQuery}, this.filters))
 			.then((r) => {
 				if (r !== "error") {
 					this.documents = r.results;

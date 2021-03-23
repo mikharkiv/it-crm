@@ -7,6 +7,7 @@ export class RootStore {
 	state = "idle";
 	isApiAvailable = true;
 	isLoggedIn = false;
+	hasLoggedOut = false;
 	errorLoggingIn = undefined;
 	// page header logics
 	pageHeaderTitle = "";
@@ -44,7 +45,7 @@ export class RootStore {
 		});
 	}
 
-	*doLogin(email, password, callback) {
+	*doLogin(email, password, doRemember, callback) {
 		yield Api.fetchNoToken('http://localhost:8000/api/token/', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -80,6 +81,7 @@ export class RootStore {
 		localStorage.removeItem('refresh');
 		this.errorLoggingIn = false;
 		this.isLoggedIn = false;
+		this.hasLoggedOut = true;
 		console.log('logged out');
 	}
 }

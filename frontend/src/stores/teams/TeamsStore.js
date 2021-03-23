@@ -8,14 +8,17 @@ export class TeamsStore {
 	totalPages = 1;
 	searchQuery = "";
 
-	constructor() {
+	filters = {};
+
+	constructor(filters) {
 		makeAutoObservable(this);
+		if (filters) this.filters = filters;
 	}
 
 	*fetchTeams() {
 		this.teams = [];
 		this.state = "loading";
-		yield TeamsAPI.getTeams({page: this.page, search: this.searchQuery})
+		yield TeamsAPI.getTeams(Object.assign({page: this.page, search: this.searchQuery}, this.filters))
 			.then((r) => {
 				if (r !== "error") {
 					this.teams = r.results;

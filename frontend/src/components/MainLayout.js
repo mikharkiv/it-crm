@@ -27,6 +27,7 @@ import DocumentsView from "./documents/DocumentsView";
 import TasksView from "./tasks/TasksView";
 import ClientsView from "./clients/ClientsView";
 import StatsPage from "./stats/StatsPage";
+import {runInAction} from "mobx";
 
 const { Content, Sider } = Layout;
 
@@ -42,8 +43,9 @@ const MainLayout = () => {
 			<Sider>
 				<Menu mode="inline" theme="dark" style={{height: "100vh"}} onClick={
 					({key}) => {
-						if (key === 10)
-							rootStore.logout();
+						if (key === "10") {
+							runInAction(() => rootStore.logout());
+						}
 						else
 							history.push(store.menuItemClickPath(key));
 					}
@@ -57,7 +59,7 @@ const MainLayout = () => {
 					<Menu.Item key="6" icon={<FileOutlined/>}>Документи</Menu.Item>
 					<Menu.Item key="7" icon={<LineChartOutlined/>}>Статистика</Menu.Item>
 					<Menu.Item key="8" icon={<BulbOutlined/>}>Порадник</Menu.Item>
-					<Menu.Item key="9" icon={<SettingOutlined/>}>Налаштування</Menu.Item>
+					{/*<Menu.Item key="9" icon={<SettingOutlined/>}>Налаштування</Menu.Item>*/}
 					<Menu.Item key="10" icon={<LogoutOutlined/>}>Вийти</Menu.Item>
 				</Menu>
 			</Sider>

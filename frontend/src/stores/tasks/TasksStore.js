@@ -8,14 +8,17 @@ export class TasksStore {
 	totalPages = 1;
 	searchQuery = "";
 
-	constructor() {
+	filters = {};
+
+	constructor(filters) {
 		makeAutoObservable(this);
+		if (filters) this.filters = filters;
 	}
 
 	*fetchTasks() {
 		this.tasks = [];
 		this.state = "loading";
-		yield TasksAPI.getTasks({page: this.page, search: this.searchQuery})
+		yield TasksAPI.getTasks(Object.assign({page: this.page, search: this.searchQuery}, this.filters))
 			.then((r) => {
 				if (r !== "error") {
 					this.tasks = r.results;

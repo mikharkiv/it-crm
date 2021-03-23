@@ -9,14 +9,17 @@ export class ClientsStore {
 	totalPages = 1;
 	searchQuery = "";
 
-	constructor() {
+	filters = {};
+
+	constructor(filters) {
 		makeAutoObservable(this);
+		if (filters) this.filters = filters;
 	}
 
 	*fetchClients() {
 		this.teams = [];
 		this.state = "loading";
-		yield ClientsAPI.getClients({page: this.page, search: this.searchQuery})
+		yield ClientsAPI.getClients(Object.assign({page: this.page, search: this.searchQuery}, this.filters))
 			.then((r) => {
 				if (r !== "error") {
 					this.clients = r.results;

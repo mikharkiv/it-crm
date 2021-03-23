@@ -24,3 +24,10 @@
 	left: 0;
 	right: 0;
 }
+.list-no-results {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 150px;
+}

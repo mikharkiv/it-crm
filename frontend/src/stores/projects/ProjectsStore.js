@@ -8,14 +8,17 @@ export class ProjectsStore {
 	totalPages = 1;
 	searchQuery = "";
 
-	constructor() {
+	filters = {};
+
+	constructor(filters) {
 		makeAutoObservable(this);
+		if (filters) this.filters = filters;
 	}
 
 	*fetchProjects() {
 		this.teams = [];
 		this.state = "loading";
-		yield ProjectsAPI.getProjects({page: this.page, search: this.searchQuery})
+		yield ProjectsAPI.getProjects(Object.assign({page: this.page, search: this.searchQuery}, this.filters))
 			.then((r) => {
 				if (r !== "error") {
 					this.projects = r.results;

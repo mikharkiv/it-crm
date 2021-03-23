@@ -9,14 +9,17 @@ export class ContactsStore {
 	totalPages = 1;
 	searchQuery = "";
 
-	constructor() {
+	filters = {};
+
+	constructor(filters) {
 		makeAutoObservable(this);
+		if (filters) this.filters = filters;
 	}
 
 	*fetchContacts() {
 		this.teams = [];
 		this.state = "loading";
-		yield ContactsAPI.getContacts({page: this.page, search: this.searchQuery})
+		yield ContactsAPI.getContacts(Object.assign({page: this.page, search: this.searchQuery}, this.filters))
 			.then((r) => {
 				if (r !== "error") {
 					this.contacts = r.results;

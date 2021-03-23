@@ -8,14 +8,17 @@ export class AdviceStore {
 	totalPages = 1;
 	searchQuery = "";
 
-	constructor() {
+	filters = {};
+
+	constructor(filters) {
 		makeAutoObservable(this);
+		if (filters) this.filters = filters;
 	}
 
 	*fetchAdvice() {
 		this.advice = [];
 		this.state = "loading";
-		yield AdviceAPI.getAdvice({page: this.page, search: this.searchQuery})
+		yield AdviceAPI.getAdvice(Object.assign({page: this.page, search: this.searchQuery}, this.filters))
 			.then((r) => {
 				if (r !== "error") {
 					this.advice = r.results;

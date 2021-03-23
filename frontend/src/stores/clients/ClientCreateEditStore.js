@@ -38,11 +38,9 @@ export class ClientCreateEditStore {
 
 	*fetchStatuses() {
 		this.clientStatuses = [];
-		this.state = "loading";
 		yield ClientStatusesAPI.getStatuses().then((r) => {
 			if (r !== "error") {
 				this.clientStatuses = r.results;
-				this.state = "done";
 			} else this.state = "error";
 		});
 	}
@@ -85,6 +83,7 @@ export class ClientCreateEditStore {
 
 	prepareInput(obj) {
 		let socials = {};
+		console.log(obj);
 		if (obj.hasOwnProperty('socials_viber') && obj.socials_viber) socials.viber = obj.socials_viber;
 		if (obj.hasOwnProperty('socials_telegram') && obj.socials_telegram) socials.telegram = obj.socials_telegram;
 		if (obj.hasOwnProperty('socials_whatsapp') && obj.socials_whatsapp) socials.whatsapp = obj.socials_whatsapp;
@@ -92,9 +91,12 @@ export class ClientCreateEditStore {
 		if (obj.hasOwnProperty('socials_facebook') && obj.socials_facebook) socials.facebook = obj.socials_facebook;
 		if (obj.hasOwnProperty('socials_twitter') && obj.socials_twitter) socials.twitter = obj.socials_twitter;
 		if (obj.hasOwnProperty('socials_linkedin') && obj.socials_linkedin) socials.linkedin = obj.socials_linkedin;
-		if (Object.keys(socials).length > 0) obj.socials = socials;
+		if (Object.keys(socials).length > 0) obj.socials = socials
+		else obj.socials = [];
 		if (this.selectedManager) obj.manager = this.selectedManager;
-		else if (this.editMode) obj.client = this.clientPure.client.id;
+		else if (this.editMode) obj.manager = this.clientPure.manager.id;
+		if (!obj.email) delete obj.email;
+		if (!this.clientStatuses || this.clientStatuses.length === 0) delete obj.status;
 		delete obj.photo;
 		return obj;
 	}

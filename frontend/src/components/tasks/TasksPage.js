@@ -3,17 +3,19 @@ import {useHistory, useRouteMatch} from "react-router";
 import {useEffect, useMemo} from "react";
 import {useStores} from "../../hooks/use-stores";
 import {action, runInAction} from "mobx";
-import {Button, Col, Pagination, Row, Input} from "antd";
+import {Button, Col, Pagination, Row, Input, Typography} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import LoadingIcon from "../LoadingIcon";
 import {TasksStore} from "../../stores/tasks/TasksStore";
 import TaskCard from "./TaskCard";
+import {paths} from "../../Paths";
 
 const {Search} = Input;
+const {Title} = Typography;
 
-const TasksPage = () => {
+const TasksPage = (props) => {
 	const history = useHistory();
-	const store = useMemo(() => new TasksStore(), []);
+	const store = useMemo(() => new TasksStore(props.filters), []);
 	const rootStore = useStores().rootStore;
 	const { path, url } = useRouteMatch();
 
@@ -40,11 +42,18 @@ const TasksPage = () => {
 			<Row key="row2" justify="center" gutter={20}>
 				{store.state === "loading" ?
 					<LoadingIcon/> :
-					(store.tasks.map((el) => (
+					(store.tasks.length > 0 ?
+						store.tasks.map((el) => (
 						<Col key={el.id} span={20}>
-							<TaskCard task={el} url={url}/>
+							<TaskCard task={el} url={paths.tasks}/>
 						</Col>
-					)))
+					)) : (
+						<Col span={20}>
+							<div className="list-no-results">
+								<Title level={4}>Немає результатів</Title>
+							</div>
+						</Col>
+						))
 				}
 			</Row>
 			<Row key="row3" justify="center" style={{marginBottom: "40px"}}>

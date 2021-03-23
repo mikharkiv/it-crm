@@ -8,13 +8,14 @@ import {AdviceStore} from "../../stores/advice/AdviceStore";
 import { PlusOutlined } from '@ant-design/icons';
 import {useStores} from "../../hooks/use-stores";
 import {action, runInAction} from "mobx";
+import {paths} from "../../Paths";
 
 
 const {Search} = Input;
 
-const AdvicePage = () => {
+const AdvicePage = (props) => {
 	const history = useHistory();
-	const store = useMemo(() => new AdviceStore(), []);
+	const store = useMemo(() => new AdviceStore(props.filters), []);
 	const rootStore = useStores().rootStore;
 	const { path, url } = useRouteMatch();
 
@@ -43,7 +44,7 @@ const AdvicePage = () => {
 					<LoadingIcon/> :
 					(store.advice.map((el) => (
 						<Col key={el.id} span={20}>
-							<AdviceCard advice={el} url={url}/>
+							<AdviceCard advice={el} url={paths.advice}/>
 						</Col>
 					)))
 				}

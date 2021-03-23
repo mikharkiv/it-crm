@@ -3,17 +3,19 @@ import {useHistory, useRouteMatch} from "react-router";
 import {useEffect, useMemo} from "react";
 import {useStores} from "../../hooks/use-stores";
 import {action, runInAction} from "mobx";
-import {Button, Col, Pagination, Row, Input} from "antd";
+import {Button, Col, Pagination, Row, Input, Typography} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import LoadingIcon from "../LoadingIcon";
 import ContactCard from "./ContactCard";
 import {ContactsStore} from "../../stores/contacts/ContactsStore";
+import {paths} from "../../Paths";
 
 const {Search} = Input;
+const {Title} = Typography;
 
-const ContactsPage = () => {
+const ContactsPage = (props) => {
 	const history = useHistory();
-	const store = useMemo(() => new ContactsStore(), []);
+	const store = useMemo(() => new ContactsStore(props.filters), []);
 	const rootStore = useStores().rootStore;
 	const { path, url } = useRouteMatch();
 
@@ -39,11 +41,18 @@ const ContactsPage = () => {
 			<Row key="row2" justify="center" gutter={20}>
 				{store.state === "loading" ?
 					<LoadingIcon/> :
-					(store.contacts.map((el) => (
+					(store.contacts.length > 0 ?
+						store.contacts.map((el) => (
 						<Col key={el.id} span={20}>
-							<ContactCard contact={el} link={url + el.id}/>
+							<ContactCard contact={el} link={paths.contacts + el.id}/>
 						</Col>
-					)))
+					)) : (
+						<Col span={20}>
+							<div className="list-no-results">
+								<Title level={4}>Немає результатів</Title>
+							</div>
+						</Col>
+						))
 				}
 			</Row>
 			<Row key="row3" justify="center" style={{marginBottom: "40px"}}>
