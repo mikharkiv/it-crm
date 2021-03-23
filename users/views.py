@@ -1,14 +1,12 @@
 from django_filters import FilterSet
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.utils.serializer_helpers import ReturnDict
 
 from advice.models import Advice
 from clients.models import Client
 from documents.models import Document
-from tasks.models import ProjectTask, PersonApproval
-from teams.models import Team
+from tasks.models import ProjectTask
 from .serializers import CRMUserSerializer
 from .models import CRMUser
 

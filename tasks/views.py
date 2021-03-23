@@ -9,7 +9,8 @@ from .serializers import *
 class ProjectTaskFilterSet(FilterSet):
 	class Meta:
 		model = ProjectTask
-		exclude = ['notes', 'attached_persons', 'is_completed']
+		fields = ['name', 'description', 'budget', 'project__client', 'deadline', 'project', 'author']
+		# exclude = ['notes', 'attached_persons', 'is_completed']
 
 
 class ProjectTaskViewSet(viewsets.ModelViewSet):
