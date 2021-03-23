@@ -27,7 +27,7 @@ class CRMUserViewSet(viewsets.ReadOnlyModelViewSet):
 
 @api_view()
 def get_me(request):
-	return Response(CRMUserSerializer(request.user).data)
+	return Response(CRMUserSerializer(request.user, context={'request': request}).data)
 
 
 @api_view()

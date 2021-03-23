@@ -20,6 +20,8 @@ class PersonApprovalSaveSerializer(PersonApprovalSerializer):
 
 
 class ProjectTaskCommentSerializer(serializers.ModelSerializer):
+	author = serializers.PrimaryKeyRelatedField(queryset=CRMUser.objects.all(), write_only=True, required=False)
+
 	class Meta:
 		model = ProjectTaskComment
 		fields = '__all__'

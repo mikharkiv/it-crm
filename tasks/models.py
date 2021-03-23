@@ -58,4 +58,4 @@ class ProjectTaskComment(models.Model):
 		return truncatechars(self.text, 30)
 
 	class Meta:
-		ordering = ['-created_at', 'author__first_name']
+		ordering = ['-created_at']
