@@ -1,0 +1,41 @@
+.task-comments {
+	min-height: 80vh;
+	max-height: 80vh;
+	display: flex;
+	flex-direction: column;
+
+	.ant-form {
+		flex-direction: row;
+	}
+
+	&-list {
+		flex: 1;
+		overflow-y: scroll;
+		padding: 0 10px;
+		margin: 10px 0;
+		border: 1px solid #d9d9d9;
+		border-radius: 5px;
+	}
+	&-avatar {
+		margin: 3px 0 0 3px;
+	}
+	&-submit {
+		display: block;
+		width: 100%;
+	}
+	&-form-top {
+		display: flex;
+		flex-direction: row;
+	}
+	&-input {
+		flex: 1;
+		margin-left: 20px;
+	}
+	&-no-add {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 5px 0;
+	}
+}

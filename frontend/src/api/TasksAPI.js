@@ -2,9 +2,16 @@ import {Api} from "./Api";
 
 export class TasksAPI {
 	static apiUrl = Api.mainUrl + 'tasks/';
+	static commentsApiUrl = TasksAPI.apiUrl + 'comments/';
 
 	static async getTasks(urlParams) {
 		return await Api.fetch(Api.getLink(this.apiUrl, urlParams))
+			.then((r) => r.json())
+			.catch(() => "error");
+	}
+
+	static async getTasksComments(urlParams) {
+		return await Api.fetch(Api.getLink(this.commentsApiUrl, urlParams))
 			.then((r) => r.json())
 			.catch(() => "error");
 	}
@@ -18,6 +25,13 @@ export class TasksAPI {
 	static async addTask(task) {
 		return await Api.fetch(`${this.apiUrl}`,
 			Object.assign({}, Api.postJson, {body: JSON.stringify(task)}))
+			.then((r) => r.json())
+			.catch(() => "error");
+	}
+
+	static async addTaskComment(id, text) {
+		return await Api.fetch(`${this.commentsApiUrl}`,
+			Object.assign({}, Api.postJson, {body: JSON.stringify({task: id, text})}))
 			.then((r) => r.json())
 			.catch(() => "error");
 	}

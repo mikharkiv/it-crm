@@ -8,6 +8,7 @@ import {TaskStore} from "../../stores/tasks/TaskStore";
 import LoadingIcon from "../LoadingIcon";
 import UserBar from "../UserBar";
 import TaskUserBar from "./TaskUserBar";
+import TaskComments from "./TaskComments";
 
 const {Text, Title, Link} = Typography;
 
@@ -33,8 +34,8 @@ const TaskPage = () => {
 	return (
 		taskStore.state === "loading" || Object.keys(taskStore.task).length === 0 ? (<LoadingIcon/>) : (
 			<>
-				<Row justify="center" style={{marginTop: "20px"}} className="task-page">
-					<Col span={16} style={{marginBottom: "30px"}}>
+				<Row justify="space-around" style={{marginTop: "20px"}} className="task-page">
+					<Col span={11} style={{marginBottom: "30px"}}>
 						<Title level={3}>{taskStore.task.name}</Title>
 						<Text style={{marginBottom: "20px", display: "block"}}>{taskStore.task.description}</Text>
 						<Space direction="vertical">
@@ -56,6 +57,9 @@ const TaskPage = () => {
 								             onChange={(e) => taskStore.setCompleted(e.target.checked)} />
 							))}
 						</div>
+					</Col>
+					<Col span={11}>
+						<TaskComments id={id} isProject={false}/>
 					</Col>
 					<Col span={16} style={{marginBottom: "30px"}}>
 						<Button type="primary" disabled={taskStore.state === "loading"} loading={taskStore.state === "loading"}

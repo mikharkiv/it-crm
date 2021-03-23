@@ -1,0 +1,41 @@
+.task-comments {
+  min-height: 80vh;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+.task-comments .ant-form {
+  flex-direction: row;
+}
+.task-comments-list {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 0 10px;
+  margin: 10px 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+}
+.task-comments-avatar {
+  margin: 3px 0 0 3px;
+}
+.task-comments-submit {
+  display: block;
+  width: 100%;
+}
+.task-comments-form-top {
+  display: flex;
+  flex-direction: row;
+}
+.task-comments-input {
+  flex: 1;
+  margin-left: 20px;
+}
+.task-comments-no-add {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+/*# sourceMappingURL=TaskComments.css.map */

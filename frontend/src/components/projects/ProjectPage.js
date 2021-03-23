@@ -6,6 +6,7 @@ import {useHistory, useParams} from "react-router";
 import {useEffect, useMemo} from "react";
 import {useStores} from "../../hooks/use-stores";
 import {ProjectStore} from "../../stores/projects/ProjectStore";
+import TaskComments from "../tasks/TaskComments";
 
 const {Title, Text} = Typography;
 
@@ -31,8 +32,8 @@ const ProjectPage = () => {
 	return (
 	projectStore.state === "loading" ? (<LoadingIcon/>) : (
 	<>
-		<Row justify="center" style={{marginTop: "20px"}}>
-			<Col span={16} style={{marginBottom: "30px"}}>
+		<Row justify="space-around" style={{marginTop: "20px"}}>
+			<Col span={11} style={{marginBottom: "30px"}}>
 				<Title>{projectStore.project.name}</Title>
 				<Space direction="vertical">
 					<Text className="project-card-text">{projectStore.project.description}</Text>
@@ -41,6 +42,9 @@ const ProjectPage = () => {
 					<UserBar size="small" name={projectStore.project.client.name}
 					         avatar={projectStore.project.client.photo}/>
 				</Space>
+			</Col>
+			<Col span={11}>
+				<TaskComments id={id} isProject={true}/>
 			</Col>
 			<Col span={16} style={{marginBottom: "30px"}}>
 				<Button type="primary" disabled={projectStore.state === "loading"} loading={projectStore.state === "loading"}
