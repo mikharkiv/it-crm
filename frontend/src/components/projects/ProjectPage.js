@@ -71,7 +71,7 @@ const ProjectPage = () => {
 					<TabPane key="2" tab="Задачі">
 						<TasksPage filters={{project: projectStore.project.id}}/>
 					</TabPane>
-					<TabPane key="3" tab="Документ">
+					<TabPane key="3" tab="Документи">
 						<DocumentsPage filters={{project: projectStore.project.id}}/>
 					</TabPane>
 				</Tabs>
