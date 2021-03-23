@@ -6,7 +6,7 @@ from teams.views import TeamViewSet
 from documents.views import DocumentViewSet
 from clients.views import ClientViewSet, ClientStatusViewSet, ContactPersonViewSet
 from projects.views import ProjectViewSet
-from tasks.views import ProjectTaskViewSet
+from tasks.views import ProjectTaskViewSet, ProjectTaskCommentViewSet
 from users.views import CRMUserViewSet
 from django.conf import settings
 from django.conf.urls.static import static
@@ -21,10 +21,11 @@ router.register(r'advice', AdviceViewSet)
 router.register(r'advice-comments', AdviceCommentViewSet)
 router.register(r'teams', TeamViewSet)
 router.register(r'documents', DocumentViewSet)
+router.register(r'clients/statuses', ClientStatusViewSet)
 router.register(r'clients', ClientViewSet)
 router.register(r'contacts', ContactPersonViewSet)
-router.register(r'clients-statuses', ClientStatusViewSet)
 router.register(r'projects', ProjectViewSet)
+router.register(r'tasks/comments', ProjectTaskCommentViewSet)
 router.register(r'tasks', ProjectTaskViewSet)
 router.register(r'users', CRMUserViewSet)
 

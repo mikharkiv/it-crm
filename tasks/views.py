@@ -32,6 +32,21 @@ class ProjectTaskViewSet(viewsets.ModelViewSet):
 		return ProjectTaskSerializer
 
 
+class ProjectTaskCommentViewSet(viewsets.ModelViewSet):
+	queryset = ProjectTaskComment.objects.all()
+	filterset_fields = ['task', 'author', 'text', 'created_at', 'task__project']
+	ordering_fields = '__all__'
+	search_fields = ['author__first_name', 'author__last_name', 'text']
+
+	def perform_create(self, serializer):
+		serializer.save(author=self.request.user)
+
+	def get_serializer_class(self):
+		if self.action == 'retrieve' or self.action == 'list':
+			return ProjectTaskCommentUserSerializer
+		return ProjectTaskCommentSerializer
+
+
 @api_view(['POST'])
 def set_task_person_checked(request, task_id):
 	appr = PersonApproval.objects.filter(task=task_id, person=request.user).first()

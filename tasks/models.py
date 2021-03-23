@@ -6,7 +6,7 @@ from django.template.defaultfilters import truncatechars
 class ProjectTask(models.Model):
 	name = models.CharField(max_length=150)
 	description = models.TextField(max_length=2500)
-	deadline = models.DateField()
+	deadline = models.DateTimeField()
 	budget = models.DecimalField(max_digits=10, decimal_places=2)
 	project = models.ForeignKey('projects.Project', on_delete=models.CASCADE, related_name='tasks')
 	author = models.ForeignKey('users.CRMUser', on_delete=models.SET_NULL, null=True, related_name='created_tasks')
