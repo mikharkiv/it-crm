@@ -38,7 +38,17 @@ const TaskPage = () => {
 			<>
 				<Row justify="space-around" style={{marginTop: "20px"}} className="task-page">
 					<Col span={22} style={{marginBottom: "10px"}}>
-						<Title level={3}>{taskStore.task.name}</Title>
+						<Title level={3} delete={taskStore.task.is_completed}>{taskStore.task.name}</Title>
+						{
+							taskStore.task.is_completed ?
+								(<Text type="success">Виконано</Text>) :
+								(<Text type="danger">Не виконано</Text>)
+						}
+						<br/>
+						{
+							taskStore.is_task_outdated && !taskStore.task.is_completed &&
+							(<Text type="danger" strong>Прострочено</Text>)
+						}
 					</Col>
 					<Col span={22}>
 						<Tabs defaultActiveKey="1" centered>

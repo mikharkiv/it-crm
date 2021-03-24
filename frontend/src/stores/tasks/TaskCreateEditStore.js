@@ -57,7 +57,7 @@ export class TaskCreateEditStore {
 		if (this.selectedProject) obj.project = this.selectedProject;
 		else delete obj.project;
 		obj.attached_persons = this.members.map((e) => e.id);
-		obj.deadline = moment(obj.deadline, 'MM.DD.YYYY').format('YYYY-MM-DD').toString();
+		obj.deadline = moment(obj.deadline, 'MM.DD.YYYY HH:mm').format('YYYY-MM-DD HH:mm').toString();
 		return obj;
 	}
 
@@ -66,7 +66,7 @@ export class TaskCreateEditStore {
 		if (obj.hasOwnProperty('project') && obj.project)
 			out.project = obj.project.name;
 		out.members = obj.attached_persons.map((u) => u.person);
-		out.deadline = moment(obj.deadline, "DD.MM.YYYY");
+		out.deadline = moment(obj.deadline, "DD.MM.YYYY HH:mm");
 		out = Object.assign({}, obj, out);
 		return out;
 	}

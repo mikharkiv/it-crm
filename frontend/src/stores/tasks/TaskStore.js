@@ -2,6 +2,8 @@ import {makeAutoObservable} from "mobx";
 import {TasksAPI} from "../../api/TasksAPI";
 import {message} from "antd";
 
+const moment = require('moment');
+
 export class TaskStore {
 	id = 0;
 	task = {};
@@ -39,5 +41,9 @@ export class TaskStore {
 				if (r !== "error")
 					message.success(`Задачу успішно відмічено як ${completed?'':'не'} виконану!`, 5);
 			})
+	}
+
+	get is_task_outdated() {
+		return moment(this.task.deadline, 'DD.MM.YYYY HH:mm').isBefore(moment());
 	}
 }

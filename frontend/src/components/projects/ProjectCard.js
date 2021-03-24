@@ -11,6 +11,15 @@ const ProjectCard = (props) => {
 		<div className="project-card">
 			<Title level={3}><Link to={`${props.url}${props.project.id}`}>{props.project.name}</Link></Title>
 			<Space direction="vertical">
+				{
+					props.project.has_tasks ?
+						(
+							props.project.is_finished ?
+								(<Text type="success" strong>Всі задачі виконані</Text>) :
+								(<Text type="warning" strong>Є невиконані задачі</Text>)
+						) :
+						(<Text type="danger" strong>Немає задач</Text>)
+				}
 				<Text className="project-card-text">{props.project.description}</Text>
 				<Text><Text strong>Команда: </Text>{props.project.team.name}</Text>
 				<Text strong>Клієнт: </Text>

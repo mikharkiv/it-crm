@@ -38,6 +38,15 @@ const ProjectPage = () => {
 		<Row justify="space-around" style={{marginTop: "20px"}}>
 			<Col span={22} style={{marginBottom: "30px"}}>
 				<Title>{projectStore.project.name}</Title>
+				{
+					projectStore.project.has_tasks ?
+						(
+							projectStore.project.is_finished ?
+								(<Text type="success" strong>Всі задачі виконані</Text>) :
+								(<Text type="warning" strong>Є невиконані задачі</Text>)
+						) :
+						(<Text type="danger" strong>Немає задач</Text>)
+				}
 			</Col>
 			<Col span={22}>
 				<Tabs defaultActiveKey="1" centered>

@@ -47,8 +47,8 @@ const TaskCreateEditPage = (props) => {
 							<InputNumber precision={0.01} placeholder="Бюджет задачі..."/>
 						</Form.Item>
 						<Form.Item label="Дедлайн" name="deadline" rules={[{required: true, message: 'Введіть дедлайн'}]}>
-							<DatePicker placeholder="Дедлайн задачі..." locale={locale}
-							            format={(t) => t.format('DD.MM.YYYY').toString()}
+							<DatePicker placeholder="Дедлайн задачі..." locale={locale} showTime
+							            format={(t) => t.format('DD.MM.YYYY HH:mm').toString()}
 							            disabledDate={(cur) => cur.isSameOrBefore(moment().startOf('day'))} />
 						</Form.Item>
 						<Form.Item name="project" label="Вибрати проєкт">
