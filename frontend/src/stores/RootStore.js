@@ -47,6 +47,7 @@ export class RootStore {
 	}
 
 	*doLogin(email, password, doRemember, callback) {
+		this.state = "loading";
 		yield Api.fetchNoToken('http://localhost:8000/api/token/', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -69,8 +70,12 @@ export class RootStore {
 
 			// get curr user
 			UsersAPI.getMe().then((r) => {
-				if (r !== "error") this.me = r
-				message.info(`Ви увійшли як ${this.me.full_name}, ${this.me.position === 'MA' ? 'Менеджер' : 'Розробник'}`, 7);
+				if (r !== "error") {
+					this.me = r
+					message.info(`Ви увійшли як ${this.me.full_name}, ${this.me.position === 'MA'
+						? 'Менеджер' : 'Розробник'}`, 7);
+				}
+				this.state = "done";
 			});
 		});
 	}

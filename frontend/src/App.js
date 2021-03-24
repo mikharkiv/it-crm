@@ -5,6 +5,8 @@ import {observer} from "mobx-react";
 import {Switch, Route, Redirect} from "react-router-dom";
 import MainLayout from "./components/MainLayout";
 import {useStores} from "./hooks/use-stores";
+import LoadingIcon from "./components/LoadingIcon";
+import MainDeveloperLayout from "./components/MainDeveloperLayout";
 
 const App = () => {
 	const rootStore = useStores().rootStore;
@@ -13,7 +15,11 @@ const App = () => {
 		<Switch>
 			<Route exact path="/login" component={LoginPage}/>
 			{ rootStore.isApiAvailable ? (
-				rootStore.isLoggedIn ? <MainLayout /> :
+				rootStore.isLoggedIn ? (
+					rootStore.state === "done" ?
+						(rootStore.me.position === 'MA' ? <MainLayout /> : <MainDeveloperLayout />)
+						: <LoadingIcon />
+					) :
 					<Route path="" render={({location}) =>
 				       <Redirect to={{pathname: "/login", state: { from: location }}}/>}/>
 				) : (
