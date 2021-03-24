@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Client, ClientStatus, ContactPerson
+from tasks.serializers import ProjectTaskSerializer
+from .models import *
 from users.serializers import CRMUserTinySerializer
 
 
@@ -40,3 +41,20 @@ class ContactPersonDetailSerializer(ContactPersonSerializer):
 class ContactPersonTinySerializer(ContactPersonSerializer):
 	class Meta(ContactPersonSerializer.Meta):
 		fields = ['name', 'photo', 'position', 'client']
+
+
+class CommunicationHistorySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = CommunicationHistory
+		fields = '__all__'
+		read_only_fields = ['author']
+
+
+class CommunicationHistoryDetailSerializer(CommunicationHistorySerializer):
+	from documents.serializers import DocumentSerializer
+	from projects.serializers import ProjectSerializer
+	author = CRMUserTinySerializer()
+	contact = ContactPersonSerializer()
+	task = ProjectTaskSerializer()
+	project = ProjectSerializer()
+	document = DocumentSerializer()

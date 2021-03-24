@@ -1,9 +1,7 @@
 from .models import Document
 from rest_framework import serializers
 from users.serializers import CRMUserTinySerializer
-from clients.serializers import ClientSerializer
 from tasks.serializers import ProjectTaskSerializer
-from projects.serializers import ProjectSerializer
 
 
 class DocumentSerializer(serializers.ModelSerializer):
@@ -26,8 +24,9 @@ class DocumentUpdateSerializer(DocumentSerializer):
 	file = serializers.FileField(required=False)
 
 
-
 class DocumentDetailSerializer(DocumentSerializer):
+	from clients.serializers import ClientSerializer
+	from projects.serializers import ProjectSerializer
 	author = CRMUserTinySerializer(read_only=True)
 	client = ClientSerializer()
 	project = ProjectSerializer()

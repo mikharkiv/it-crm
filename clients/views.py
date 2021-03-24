@@ -47,3 +47,18 @@ class ContactPersonViewSet(viewsets.ModelViewSet):
 		if self.action == "list" or self.action == "retrieve":
 			return ContactPersonDetailSerializer
 		return ContactPersonSerializer
+
+
+class CommunicationHistoryViewSet(viewsets.ModelViewSet):
+	queryset = CommunicationHistory.objects.all()
+	filterset_fields = '__all__'
+	ordering_fields = '__all__'
+	search_fields = ['author__first_name', 'author__last_name', 'contact__name', 'description']
+
+	def get_serializer_class(self):
+		if self.action == "list" or self.action == "retrieve":
+			return CommunicationHistoryDetailSerializer
+		return CommunicationHistorySerializer
+
+	def perform_create(self, serializer):
+		serializer.save(author=self.request.user)

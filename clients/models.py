@@ -69,3 +69,43 @@ class ContactPerson(models.Model):
 
 	def __str__(self):
 		return self.name
+
+
+class CommunicationHistory(models.Model):
+	TYPE_INBOUND = 'in'
+	TYPE_OUTBOUND = 'out'
+
+	TYPE_CHOICES = [
+		(TYPE_INBOUND, 'Inbound'),
+		(TYPE_OUTBOUND, 'Outbound'),
+	]
+
+	CHANNEL_EMAIL = 'email'
+	CHANNEL_PHONE = 'phone'
+	CHANNEL_SOCIAL = 'social'
+	CHANNEL_MESSENGER = 'messenger'
+	CHANNEL_MAIL = 'mail'
+	CHANNEL_FAX = 'fax'
+	CHANNEL_MEETING = 'meet'
+
+	CHANNEL_CHOICES = [
+		(CHANNEL_EMAIL, 'Email'),
+		(CHANNEL_PHONE, 'Phone'),
+		(CHANNEL_SOCIAL, 'Social network'),
+		(CHANNEL_MESSENGER, 'Messenger'),
+		(CHANNEL_MAIL, 'Mail'),
+		(CHANNEL_FAX, 'Fax'),
+		(CHANNEL_MEETING, 'Meeting')
+	]
+
+	date = models.DateTimeField(auto_now_add=True)
+	author = models.ForeignKey('users.CRMUser', on_delete=models.CASCADE, related_name='communications')
+	contact = models.ForeignKey(ContactPerson, on_delete=models.CASCADE, related_name='communications')
+	channel = models.CharField(max_length=20, choices=CHANNEL_CHOICES, default=CHANNEL_EMAIL)
+	channel_info = models.CharField(max_length=50, null=True, blank=True)
+	type = models.CharField(max_length=3, choices=TYPE_CHOICES, default=TYPE_OUTBOUND)
+	description = models.TextField(max_length=1000)
+	# additional info
+	task = models.ForeignKey('tasks.ProjectTask', null=True, on_delete=models.CASCADE, related_name='communications')
+	project = models.ForeignKey('projects.Project', null=True, on_delete=models.CASCADE, related_name='communications')
+	document = models.ForeignKey('documents.Document', null=True, on_delete=models.CASCADE, related_name='communications')

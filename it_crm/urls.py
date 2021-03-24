@@ -4,7 +4,7 @@ from rest_framework import routers
 from advice.views import AdviceViewSet, AdviceCommentViewSet
 from teams.views import TeamViewSet
 from documents.views import DocumentViewSet
-from clients.views import ClientViewSet, ClientStatusViewSet, ContactPersonViewSet
+from clients.views import *
 from projects.views import ProjectViewSet
 from tasks.views import ProjectTaskViewSet, ProjectTaskCommentViewSet
 from users.views import CRMUserViewSet
@@ -22,6 +22,7 @@ router.register(r'advice-comments', AdviceCommentViewSet)
 router.register(r'teams', TeamViewSet)
 router.register(r'documents', DocumentViewSet)
 router.register(r'clients/statuses', ClientStatusViewSet)
+router.register(r'clients/communications', CommunicationHistoryViewSet)
 router.register(r'clients', ClientViewSet)
 router.register(r'contacts', ContactPersonViewSet)
 router.register(r'projects', ProjectViewSet)
