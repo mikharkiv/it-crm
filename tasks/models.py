@@ -36,7 +36,7 @@ class ProjectTask(models.Model):
 		return self.project.team.teamlead
 
 	class Meta:
-		ordering = ['-created_at', 'name']
+		ordering = ['deadline']
 
 
 class PersonApproval(models.Model):

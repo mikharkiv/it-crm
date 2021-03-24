@@ -14,3 +14,11 @@ class ProjectSerializer(serializers.ModelSerializer):
 class ProjectTeamClientSerializer(ProjectSerializer):
 	team = TeamUserSerializer()
 	client = ClientSerializer()
+	has_tasks = serializers.SerializerMethodField()
+	is_finished = serializers.SerializerMethodField()
+
+	def get_has_tasks(self, obj):
+		return obj.has_tasks()
+
+	def get_is_finished(self, obj):
+		return obj.is_finished()

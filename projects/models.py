@@ -1,8 +1,8 @@
 from django.db import models
 from clients.models import Client
+from tasks.models import ProjectTask
 
 
-# TODO add comments
 class Project(models.Model):
 	name = models.CharField(max_length=200)
 	description = models.TextField(max_length=2000)
@@ -14,6 +14,13 @@ class Project(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def has_tasks(self):
+		return ProjectTask.objects.filter(project=self).exists()
+
+	def is_finished(self):
+		return self.has_tasks() and not filter(lambda t: not t.is_completed(),
+												   ProjectTask.objects.filter(project=self).all())
 
 	class Meta:
 		ordering = ['-created_at', 'name']
