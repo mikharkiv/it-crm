@@ -41,25 +41,38 @@ export class UserAutocompleteStore {
 
 const UserAutocomplete = (props) => {
 	const store = useMemo(() => new UserAutocompleteStore(props.variantsCallback, props.onlyManager), []);
+	const [localVal, setLocalVal] = useState(props.value ? {value: props.value.value, key: props.value.key} :
+		{value: '', key: null});
 
-	const [val, setVal] = useState('');
-
-	const onValChange = (v) => {
-		setVal(v);
-		runInAction(() => store.onChange(v));
+	const onChange = (val) => {
+		store.onChange(val);
+		setLocalVal({value: val, key: null});
 	}
 
-	const onSelect = (k, o) => {
-		if (props.clearAfterSelect)
-			setVal('');
-		runInAction(() => props.onSelect(k, o));
+	const onSelect = (val, option) => {
+		setLocalVal({value: val, key: option.key});
+		if (props.onChange) props.onChange(option.key);
+		if (props.onSelect) props.onSelect(val, option);
 	}
+
+	// const [val, setVal] = useState('');
+	//
+	// const onValChange = (v) => {
+	// 	setVal(v);
+	// 	runInAction(() => store.onChange(v));
+	// }
+	//
+	// const onSelect = (k, o) => {
+	// 	if (props.clearAfterSelect)
+	// 		setVal('');
+	// 	runInAction(() => props.onSelect(k, o));
+	// }
 
 	return (
 		<AutoComplete placeholder="Почніть писати, щоб побачити варіанти..."
 		              onSelect={onSelect}
-		              onChange={onValChange}
-					  defaultValue={props.value} value={props.clearAfterSelect && val}>
+		              onChange={onChange}
+					  value={localVal.value}>
 			{ store.variants.map((e) => (
 				<AutoComplete.Option key={e.id} value={e.full_name}>
 					<UserBar size="small" name={e.full_name} avatar={e.image}/>

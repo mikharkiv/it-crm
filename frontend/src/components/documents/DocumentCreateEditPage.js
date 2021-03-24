@@ -49,13 +49,13 @@ const DocumentCreateEditPage = (props) => {
 							</Upload>
 						</Form.Item>
 						<Form.Item name="client" label="Вибрати клієнта">
-							<ClientAutocomplete onSelect={store.onClientSelect} />
+							<ClientAutocomplete />
 						</Form.Item>
 						<Form.Item name="project" label="Вибрати проєкт">
-							<ProjectAutocomplete onSelect={store.onProjectSelect} />
+							<ProjectAutocomplete />
 						</Form.Item>
 						<Form.Item name="task" label="Вибрати задачу">
-							<TaskAutocomplete onSelect={store.onTaskSelect} />
+							<TaskAutocomplete />
 						</Form.Item>
 						<Form.Item>
 							<Button type="primary" htmlType="submit" disabled={!props.editMode && !store.file}>

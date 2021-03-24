@@ -7,7 +7,6 @@ export class TaskCreateEditStore {
 	task = {};
 	taskPure = {};
 	state = "idle";
-	selectedProject = null;
 	members = [];
 	editMode = false;
 	userVariants = [];
@@ -54,8 +53,6 @@ export class TaskCreateEditStore {
 	}
 
 	prepareInput(obj) {
-		if (this.selectedProject) obj.project = this.selectedProject;
-		else delete obj.project;
 		obj.attached_persons = this.members.map((e) => e.id);
 		obj.deadline = moment(obj.deadline, 'MM.DD.YYYY HH:mm').format('YYYY-MM-DD HH:mm').toString();
 		return obj;
@@ -64,15 +61,11 @@ export class TaskCreateEditStore {
 	prepareOutput(obj) {
 		let out = {};
 		if (obj.hasOwnProperty('project') && obj.project)
-			out.project = obj.project.name;
+			out.project = {value: obj.project.name, key: obj.project.id};
 		out.members = obj.attached_persons.map((u) => u.person);
 		out.deadline = moment(obj.deadline, "DD.MM.YYYY HH:mm");
 		out = Object.assign({}, obj, out);
 		return out;
-	}
-
-	onProjectSelect = (val, option) => {
-		this.selectedProject = option.key;
 	}
 
 	onUserSelect = (val, option) => {
@@ -84,8 +77,6 @@ export class TaskCreateEditStore {
 	}
 
 	setUserVariants = (v) => {
-		console.log('Got variants');
-		console.log(v);
 		this.userVariants = v;
 	}
 }

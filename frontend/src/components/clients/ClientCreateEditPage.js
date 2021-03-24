@@ -53,7 +53,7 @@ const ClientCreateEditPage = (props) => {
 							</Select>
 						</Form.Item>
 						<Form.Item name="manager" label="Вибрати менеджера" >
-							<UserAutocomplete value={store.client.manager} onlyManager={true} onSelect={store.onManagerSelect} />
+							<UserAutocomplete value={store.client.manager} onlyManager={true} />
 						</Form.Item>
 						<Form.Item label="Фото" name="photo">
 							<Upload accept="image/jpg, image/jpeg, image/png"
@@ -101,7 +101,7 @@ const ClientCreateEditPage = (props) => {
 							<Input placeholder="Linkedin..."/>
 						</Form.Item>
 						<Form.Item>
-							<Button type="primary" htmlType="submit" disabled={!props.editMode && !store.selectedManager}>
+							<Button type="primary" htmlType="submit">
 								{props.editMode ?'Змінити':'Додати'} клієнта</Button>
 						</Form.Item>
 					</Col>

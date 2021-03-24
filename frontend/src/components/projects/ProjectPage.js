@@ -9,6 +9,7 @@ import {ProjectStore} from "../../stores/projects/ProjectStore";
 import TaskComments from "../tasks/TaskComments";
 import TasksPage from "../tasks/TasksPage";
 import DocumentsPage from "../documents/DocumentsPage";
+import {runInAction} from "mobx";
 
 const {Title, Text} = Typography;
 const {TabPane} = Tabs;
@@ -21,7 +22,7 @@ const ProjectPage = () => {
 
 	useEffect(() => {projectStore.fetch()}, [projectStore]);
 
-	rootStore.setupHeading(true, projectStore.project.name || "...", "Проєкт");
+	runInAction(() => rootStore.setupHeading(true, projectStore.project.name || "...", "Проєкт"));
 
 	const edit = () => {
 		history.push(`/projects/${id}/edit`);

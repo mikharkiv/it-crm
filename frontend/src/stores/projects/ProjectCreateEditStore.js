@@ -7,8 +7,6 @@ export class ProjectCreateEditStore {
 	project = {};
 	projectPure = {};
 	state = "idle";
-	selectedClient = null;
-	selectedTeam = null;
 	editMode = false;
 
 	constructor(id, editMode) {
@@ -34,7 +32,7 @@ export class ProjectCreateEditStore {
 	}
 
 	*addProject(obj, callback) {
-		yield ProjectsAPI.addProject(this.prepareInput(obj))
+		yield ProjectsAPI.addProject(obj)
 			.then((r) => {
 				if (r !== "error") {
 					callback(r.id);
@@ -43,7 +41,7 @@ export class ProjectCreateEditStore {
 	}
 
 	*saveProject(obj, callback) {
-		yield ProjectsAPI.modifyProject(this.id, this.prepareInput(obj))
+		yield ProjectsAPI.modifyProject(this.id, obj)
 			.then((r) => {
 				if (r !== "error") {
 					callback(this.id);
@@ -51,26 +49,10 @@ export class ProjectCreateEditStore {
 			})
 	}
 
-	prepareInput(obj) {
-		if (this.selectedClient) obj.client = this.selectedClient;
-		else if (this.editMode) obj.client = this.projectPure.client.id;
-		if (this.selectedTeam) obj.team = this.selectedTeam;
-		else if (this.editMode) obj.team = this.projectPure.team.id;
-		return obj;
-	}
-
 	prepareOutput(obj) {
 		return Object.assign(obj, {
-			client: obj.client.name,
-			team: obj.team.name
+			client: {value: obj.client.name, key: obj.client.id},
+			team: {value: obj.team.name, key: obj.team.id},
 		});
-	}
-
-	onClientSelect = (val, option) => {
-		this.selectedClient = option.key;
-	}
-
-	onTeamSelect = (val, option) => {
-		this.selectedTeam = option.key;
 	}
 }

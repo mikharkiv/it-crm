@@ -6,9 +6,6 @@ export class DocumentCreateEditStore {
 	document = {};
 	documentPure = {};
 	state = "idle";
-	selectedClient = null;
-	selectedProject = null;
-	selectedTask = null;
 	editMode = false;
 	file = null;
 
@@ -53,12 +50,6 @@ export class DocumentCreateEditStore {
 	}
 
 	prepareInput(obj) {
-		if (this.selectedClient) obj.client = this.selectedClient;
-		else delete obj.client;
-		if (this.selectedProject) obj.project = this.selectedProject;
-		else delete obj.project;
-		if (this.selectedTask) obj.task = this.selectedTask;
-		else delete obj.task;
 		if (this.file) obj.file = this.file;
 		else delete obj.file;
 		return obj;
@@ -67,23 +58,13 @@ export class DocumentCreateEditStore {
 	prepareOutput(obj) {
 		let out = {};
 		if (obj.hasOwnProperty('client') && obj.client)
-			out.client = obj.client.name;
+			out.client = {value: obj.client.name, key: obj.client.id};
 		if (obj.hasOwnProperty('task') && obj.task)
-			out.task = obj.task.name;
+			out.task = {value: obj.task.name, key: obj.task.id};
 		if (obj.hasOwnProperty('project') && obj.project)
-			out.project = obj.project.name;
-		out = Object.assign({}, obj, out)
+			out.project = {value: obj.project.name, key: obj.project.id};
+		out = Object.assign({}, obj, out);
 		return out;
-	}
-
-	onClientSelect = (val, option) => {
-		this.selectedClient = option.key;
-	}
-	onProjectSelect = (val, option) => {
-		this.selectedProject = option.key;
-	}
-	onTaskSelect = (val, option) => {
-		this.selectedTask = option.key;
 	}
 
 	uploadFile = (file) => {

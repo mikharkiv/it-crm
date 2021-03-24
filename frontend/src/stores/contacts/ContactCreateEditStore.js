@@ -6,7 +6,6 @@ export class ContactCreateEditStore {
 	contact = {};
 	contactPure = {};
 	state = "idle";
-	selectedClient = null;
 	editMode = false;
 	photo = null;
 	photoName = null;
@@ -79,8 +78,6 @@ export class ContactCreateEditStore {
 		if (obj.hasOwnProperty('socials_twitter') && obj.socials_twitter) socials.twitter = obj.socials_twitter;
 		if (obj.hasOwnProperty('socials_linkedin') && obj.socials_linkedin) socials.linkedin = obj.socials_linkedin;
 		if (Object.keys(socials).length > 0) obj.socials = socials;
-		if (this.selectedClient) obj.client = this.selectedClient;
-		else if (this.editMode) obj.client = this.contactPure.client.id;
 		delete obj.photo;
 		return obj;
 	}
@@ -90,13 +87,9 @@ export class ContactCreateEditStore {
 		if (obj.hasOwnProperty('socials') && obj.socials && typeof obj.socials === "object")
 			for (let key of Object.keys(obj.socials))
 				out['socials_' + key] = obj.socials[key];
-		out.client = obj.client.name;
+		out.client = {value: obj.client.name, key: obj.client.id};
 		out = Object.assign(obj, out)
 		return out;
-	}
-
-	onClientSelect = (val, option) => {
-		this.selectedClient = option.key;
 	}
 
 	uploadPhoto = (file) => {

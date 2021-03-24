@@ -52,7 +52,7 @@ const TaskCreateEditPage = (props) => {
 							            disabledDate={(cur) => cur.isSameOrBefore(moment().startOf('day'))} />
 						</Form.Item>
 						<Form.Item name="project" label="Вибрати проєкт">
-							<ProjectAutocomplete onSelect={store.onProjectSelect} />
+							<ProjectAutocomplete />
 						</Form.Item>
 						<Form.Item label="Прикріпити користувача">
 							<UserAutocomplete onSelect={store.onUserSelect} clearAfterSelect
@@ -66,7 +66,7 @@ const TaskCreateEditPage = (props) => {
 							}
 						</div>
 						<Form.Item>
-							<Button type="primary" htmlType="submit" disabled={!props.editMode && !store.selectedProject}>
+							<Button type="primary" htmlType="submit">
 								{props.editMode ?'Змінити':'Додати'} задачу</Button>
 						</Form.Item>
 					</Col>

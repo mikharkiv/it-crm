@@ -7,7 +7,6 @@ export class ClientCreateEditStore {
 	client = {};
 	clientPure = {};
 	state = "idle";
-	selectedManager = null;
 	editMode = false;
 	photo = null;
 	photoName = null;
@@ -93,8 +92,6 @@ export class ClientCreateEditStore {
 		if (obj.hasOwnProperty('socials_linkedin') && obj.socials_linkedin) socials.linkedin = obj.socials_linkedin;
 		if (Object.keys(socials).length > 0) obj.socials = socials
 		else obj.socials = [];
-		if (this.selectedManager) obj.manager = this.selectedManager;
-		else if (this.editMode) obj.manager = this.clientPure.manager.id;
 		if (!obj.email) delete obj.email;
 		if (!this.clientStatuses || this.clientStatuses.length === 0) delete obj.status;
 		delete obj.photo;
@@ -106,15 +103,11 @@ export class ClientCreateEditStore {
 		if (obj.hasOwnProperty('socials') && obj.socials && typeof obj.socials === "object")
 			for (let key of Object.keys(obj.socials))
 				out['socials_' + key] = obj.socials[key];
-		out.manager = obj.manager.full_name;
+		out.manager = {value: obj.manager.full_name, key: obj.manager.id};
 		if (obj.status)
 			out.status = obj.status.name;
 		out = Object.assign(obj, out);
 		return out;
-	}
-
-	onManagerSelect = (val, option) => {
-		this.selectedManager = option.key;
 	}
 
 	uploadPhoto = (file) => {

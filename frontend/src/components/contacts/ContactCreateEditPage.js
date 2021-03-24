@@ -85,10 +85,10 @@ const ContactCreateEditPage = (props) => {
 							<Input placeholder="Linkedin..."/>
 						</Form.Item>
 						<Form.Item name="client" label="Вибрати клієнта"  rules={[{required: true, message: 'Виберіть клієнта'}]}>
-							<ClientAutocomplete onSelect={store.onClientSelect} />
+							<ClientAutocomplete />
 						</Form.Item>
 						<Form.Item>
-							<Button type="primary" htmlType="submit" disabled={!props.editMode && !store.selectedClient}>
+							<Button type="primary" htmlType="submit">
 								{props.editMode ?'Змінити':'Додати'} контакт</Button>
 						</Form.Item>
 					</Col>

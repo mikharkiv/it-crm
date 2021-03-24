@@ -40,14 +40,13 @@ const ContactCreateEditPage = (props) => {
 					<Input placeholder="Опис проєкту..."/>
 				</Form.Item>
 				<Form.Item name="client" label="Вибрати клієнта"  rules={[{required: true, message: 'Виберіть клієнта'}]}>
-					<ClientAutocomplete onSelect={store.onClientSelect} />
+					<ClientAutocomplete />
 				</Form.Item>
 				<Form.Item name="team" label="Вибрати команду"  rules={[{required: true, message: 'Виберіть команду'}]}>
-					<TeamAutocomplete onSelect={store.onTeamSelect} />
+					<TeamAutocomplete />
 				</Form.Item>
 				<Form.Item>
-					<Button type="primary" htmlType="submit"
-					        disabled={!props.editMode && (!store.selectedClient || !store.selectedTeam)}>
+					<Button type="primary" htmlType="submit">
 						{props.editMode ?'Змінити':'Додати'} проєкт</Button>
 				</Form.Item>
 			</Col>
