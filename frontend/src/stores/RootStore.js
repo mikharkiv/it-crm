@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import {Api} from "../api/Api";
 import {UsersAPI} from "../api/UsersAPI";
+import {message} from "antd";
 
 export class RootStore {
 	// login logics
@@ -14,7 +15,7 @@ export class RootStore {
 	pageHeaderSecondary = "";
 	canGoBack = true;
 
-	me = null;
+	me = {};
 
 	constructor() {
 		makeAutoObservable(this);
@@ -66,7 +67,11 @@ export class RootStore {
 			if (callback)
 				callback.call();
 
-			UsersAPI.getMe().then((r) => {if (r !== "error") this.me = r}); // get curr user
+			// get curr user
+			UsersAPI.getMe().then((r) => {
+				if (r !== "error") this.me = r
+				message.info(`Ви увійшли як ${this.me.full_name}, ${this.me.position === 'MA' ? 'Менеджер' : 'Розробник'}`, 7);
+			});
 		});
 	}
 

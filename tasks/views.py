@@ -23,8 +23,12 @@ class ProjectTaskViewSet(viewsets.ModelViewSet):
 		serializer.save(author=self.request.user)
 
 	def filter_queryset(self, queryset):
-		queryset = super(ProjectTaskViewSet, self).filter_queryset(queryset).order_by('deadline').all()
-		return sorted(queryset, key=lambda q: q.is_completed())
+		if self.action == 'list':
+			queryset = super(ProjectTaskViewSet, self).filter_queryset(queryset).order_by('deadline').all()
+			return sorted(queryset, key=lambda q: q.is_completed())
+		else:
+			return super(ProjectTaskViewSet, self).filter_queryset(queryset)
+
 
 	def get_serializer_class(self):
 		if self.action == 'retrieve' or self.action == 'list':

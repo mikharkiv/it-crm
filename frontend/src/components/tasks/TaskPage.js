@@ -61,7 +61,7 @@ const TaskPage = () => {
 											<Text><Text strong>Дедлайн: </Text>{taskStore.task.deadline}</Text>
 											<Text><Text strong>Створено: </Text>{taskStore.task.created_at}</Text>
 											<Text><Text strong>Бюджет: </Text>{taskStore.task.budget}</Text>
-											<Text><Text strong>Проєкт: </Text>{taskStore.task.project.name}</Text>
+											<Text><Text strong>Проєкт: </Text>{taskStore.task.project && taskStore.task.project.name}</Text>
 											<Text><Text strong>Автор: </Text><UserBar size="small" avatar={taskStore.task.author.image}
 											                                          name={taskStore.task.author.full_name}/></Text>
 										</Space>
