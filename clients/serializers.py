@@ -54,7 +54,7 @@ class CommunicationHistoryDetailSerializer(CommunicationHistorySerializer):
 	from documents.serializers import DocumentSerializer
 	from projects.serializers import ProjectSerializer
 	author = CRMUserTinySerializer()
-	contact = ContactPersonSerializer()
+	contact = ContactPersonDetailSerializer()
 	task = ProjectTaskSerializer()
 	project = ProjectSerializer()
 	document = DocumentSerializer()

@@ -109,3 +109,6 @@ class CommunicationHistory(models.Model):
 	task = models.ForeignKey('tasks.ProjectTask', null=True, on_delete=models.CASCADE, related_name='communications')
 	project = models.ForeignKey('projects.Project', null=True, on_delete=models.CASCADE, related_name='communications')
 	document = models.ForeignKey('documents.Document', null=True, on_delete=models.CASCADE, related_name='communications')
+
+	class Meta:
+		ordering = ['-date']
