@@ -1,24 +1,25 @@
 import {observer} from "mobx-react";
-import {useRef, useMemo, useState} from "react";
-import {Avatar, Button, Comment, Form, Input, List, message, Typography} from "antd";
+import React from "react";
+import {useRef, useMemo, useEffect} from "react";
+import {Avatar, Button, Comment, Form, Input, message, Typography} from "antd";
 import {useStores} from "../../hooks/use-stores";
 import {TaskCommentsStore} from "../../stores/tasks/TaskCommentsStore";
 import LoadingIcon from "../LoadingIcon";
 import "../../styles/tasks/TaskComments.css";
-import {runInAction} from "mobx";
 
 const {TextArea} = Input;
 const {Text, Title} = Typography;
 
 const TaskComments = (props) => {
 	const rootStore = useStores().rootStore;
-	const listRef = useRef(null);
 	const [form] = Form.useForm();
 	const store = useMemo(() => new TaskCommentsStore(props.id, props.isProject), []);
+	const listBottom = React.createRef(); // dummy element to scroll to the bottom of the list
+	const list = useRef(null);
 
 	const onListScroll = (e) => {
-		console.log(e);
-		if (e.target.scrollTop > (e.target.scrollHeight - e.target.clientHeight) * 0.9) store.fetchNextPage();
+		if (e.target.scrollTop < (e.target.scrollHeight - e.target.clientHeight) * 0.1)
+			store.fetchNextPage();
 	};
 
 	const onCommentFormSubmit = (data) => {
@@ -30,10 +31,24 @@ const TaskComments = (props) => {
 		message.success('Коментар додано!', 5);
 	};
 
+	const scrollToBottom = () => {
+		listBottom.current && listBottom.current.scrollIntoView();
+	}
+
+	const keepScrollingPosition = () => {
+		if (store.pageState !== "idle") return;
+		if (list.current)
+			for (let i = 0; i < store.newElementsCount; i++)
+				list.current.scrollTop += list.current.children[i].clientHeight;
+	}
+
+	useEffect(scrollToBottom, [store.state]);
+	useEffect(keepScrollingPosition, [store.pageState]);
+
 	return (
 		<div className="task-comments">
 			<Title level={5}>Коментарі</Title>
-			<List onScroll={onListScroll} ref={listRef}
+			<div ref={list} onScroll={onListScroll}
 			       className="task-comments-list">
 				{ store.state === 'loading' && (<LoadingIcon style={{display: 'block', margin: '20px auto'}}/>)}
 				{store.comments.length > 0 ?
@@ -42,7 +57,8 @@ const TaskComments = (props) => {
 						datetime={c.created_at} content={c.text}/>))) :
 					(<Text>Немає коментарів</Text>)
 				}
-			</List>
+				<div style={{width: "100%", height: 0}} ref={listBottom} />
+			</div>
 			<div className="task-comments-add">
 
 				{ props.isProject ? (
