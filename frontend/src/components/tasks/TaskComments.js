@@ -14,7 +14,6 @@ const TaskComments = (props) => {
 	const rootStore = useStores().rootStore;
 	const [form] = Form.useForm();
 	const store = useMemo(() => new TaskCommentsStore(props.id, props.isProject), []);
-	const listBottom = React.createRef(); // dummy element to scroll to the bottom of the list
 	const list = useRef(null);
 
 	const onListScroll = (e) => {
@@ -32,7 +31,7 @@ const TaskComments = (props) => {
 	};
 
 	const scrollToBottom = () => {
-		listBottom.current && listBottom.current.scrollIntoView();
+		list.current && (list.current.scrollTop = 10000000);
 	}
 
 	const keepScrollingPosition = () => {
@@ -57,7 +56,6 @@ const TaskComments = (props) => {
 						datetime={c.created_at} content={c.text}/>))) :
 					(<Text>Немає коментарів</Text>)
 				}
-				<div style={{width: "100%", height: 0}} ref={listBottom} />
 			</div>
 			<div className="task-comments-add">
 

@@ -1,0 +1,45 @@
+.client-communications {
+	min-height: 80vh;
+	max-height: 80vh;
+	display: flex;
+	flex-direction: column;
+
+	&-list {
+		flex: 1;
+		overflow-y: scroll;
+		padding: 0 10px;
+		margin: 10px 0;
+		border: 1px solid #d9d9d9;
+		border-radius: 5px;
+	}
+	&-no-add {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 5px 0;
+	}
+	&-comment {
+		margin-bottom: 20px;
+
+		&-tag {
+			display: flex;
+			flex-direction: row;
+			width: min-content;
+			align-items: center;
+			justify-content: center;
+			margin: 2px 0;
+			line-height: 1.35em;
+
+			> span {
+				margin-left: 4px;
+			}
+		}
+		.ant-comment-inner {
+			padding-bottom: 0;
+		}
+		.ant-comment-nested {
+			margin-top: -10px;
+		}
+	}
+}

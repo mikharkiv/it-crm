@@ -10,6 +10,7 @@ import UserBar from "../UserBar";
 import TaskUserBar from "./TaskUserBar";
 import TaskComments from "./TaskComments";
 import DocumentsPage from "../documents/DocumentsPage";
+import ClientCommunications from "../clients/communications/ClientCommunications";
 
 const {Text, Title, Link} = Typography;
 const {TabPane} = Tabs;
@@ -95,6 +96,9 @@ const TaskPage = () => {
 							</TabPane>
 							<TabPane key="2" tab="Документи">
 								<DocumentsPage filters={{task: taskStore.task.id}} />
+							</TabPane>
+							<TabPane key="3" tab="Комунікації" style={{paddingBottom: "40px"}}>
+								<ClientCommunications type="task" id={id}/>
 							</TabPane>
 						</Tabs>
 					</Col>

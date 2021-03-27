@@ -1,4 +1,4 @@
-import {Button, Col, message, Row, Space, Typography} from "antd";
+import {Button, Col, message, Row, Space, Tabs, Typography} from "antd";
 import {observer} from "mobx-react";
 import {useHistory, useParams} from "react-router";
 import {useStores} from "../../hooks/use-stores";
@@ -7,6 +7,7 @@ import {useEffect, useMemo} from "react";
 import {DocumentStore} from "../../stores/documents/DocumentStore";
 import LoadingIcon from "../LoadingIcon";
 import UserBar from "../UserBar";
+import ClientCommunications from "../clients/communications/ClientCommunications";
 const filesize = require('filesize');
 
 const {Text, Title, Link} = Typography;
@@ -54,6 +55,10 @@ const DocumentPage = () => {
 								<Text><Text strong>Проєкт: </Text>{documentStore.document.project.name}</Text>
 							) : null}
 						</Space>
+					</Col>
+					<Col span={16} style={{margin: "20px 0"}}>
+						<Title level={4}>Обговорення</Title>
+						<ClientCommunications type="document" id={id}/>
 					</Col>
 					<Col span={16} style={{marginBottom: "30px"}}>
 						<Button type="primary" disabled={documentStore.state === "loading"} loading={documentStore.state === "loading"}

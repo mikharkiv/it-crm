@@ -7,6 +7,7 @@ import UserBar from "../UserBar";
 import LoadingIcon from "../LoadingIcon";
 import {observer} from "mobx-react";
 import {runInAction} from "mobx";
+import ClientCommunications from "../clients/communications/ClientCommunications";
 
 const {Link, Title} = Typography;
 
@@ -32,12 +33,12 @@ const ContactPage = () => {
 	return (
 		contactStore.state === "loading" ? (<LoadingIcon/>) : (
 		<>
-		<Row justify="center" style={{marginTop: "20px"}}>
-			<Col span={16} style={{marginBottom: "30px"}}>
+		<Row justify="space-around" style={{marginTop: "20px"}}>
+			<Col span={23} style={{marginBottom: "30px"}}>
 				<UserBar name={contactStore.contact.name} text={contactStore.contact.position}
 				         avatar={contactStore.contact.photo} />
 			</Col>
-			<Col span={16} style={{marginBottom: "30px"}}>
+			<Col span={11} style={{marginBottom: "30px"}}>
 				<Title level={3}>Контакти</Title>
 				<Descriptions style={{marginTop: "20px"}} size="small" layout="horizontal" column={1}>
 					{ contactStore.contact.hasOwnProperty('address') && contactStore.contact.address &&
@@ -65,46 +66,47 @@ const ContactPage = () => {
 						<Link href={`${contactStore.contact.website}`}>{contactStore.contact.website}</Link>
 					</Descriptions.Item>) }
 				</Descriptions>
-			</Col>
-			<Col span={16} style={{marginBottom: "30px"}}>
-				<Title level={3}>Соцмережі</Title>
+				<Title level={3} style={{marginTop: "30px"}}>Соцмережі</Title>
 				<Descriptions style={{marginTop: "20px"}} size="small" layout="horizontal" column={1}>
 					{ contactStore.contact.hasOwnProperty('socials') && contactStore.contact.socials &&
-						typeof contactStore.contact.socials === "object" ?
-					(contactStore.contact.socials.hasOwnProperty('viber') &&
-					(<Descriptions.Item label="Viber">
-						<Link href={`${contactStore.contact.socials.viber}`}>{contactStore.contact.socials.viber}</Link>
-					</Descriptions.Item>)) || (
-					contactStore.contact.socials.hasOwnProperty('telegram') &&
-					(<Descriptions.Item label="Telegram">
-						<Link href={`${contactStore.contact.socials.telegram}`}>{contactStore.contact.socials.telegram}</Link>
-					</Descriptions.Item>)) || (
-					contactStore.contact.socials.hasOwnProperty('whatsapp') &&
-					(<Descriptions.Item label="Whatsapp">
-						<Link href={`${contactStore.contact.socials.whatsapp}`}>{contactStore.contact.socials.whatsapp}</Link>
-					</Descriptions.Item>)) || (
-					contactStore.contact.socials.hasOwnProperty('instagram') &&
-					(<Descriptions.Item label="Instagram">
-						<Link href={`${contactStore.contact.socials.instagram}`}>{contactStore.contact.socials.instagram}</Link>
-					</Descriptions.Item>)) || (
-					contactStore.contact.socials.hasOwnProperty('facebook') &&
-					(<Descriptions.Item label="Facebook">
-						<Link href={`${contactStore.contact.socials.facebook}`}>{contactStore.contact.socials.facebook}</Link>
-					</Descriptions.Item>)) || (
-					contactStore.contact.socials.hasOwnProperty('twitter') &&
-					(<Descriptions.Item label="Twitter">
-						<Link href={`${contactStore.contact.socials.twitter}`}>{contactStore.contact.socials.twitter}</Link>
-					</Descriptions.Item>)) || (
-					contactStore.contact.socials.hasOwnProperty('linkedin') &&
-					(<Descriptions.Item label="LinkedIn">
-						<Link href={`${contactStore.contact.socials.linkedin}`}>{contactStore.contact.socials.linkedin}</Link>
-					</Descriptions.Item>)) : null}
+					typeof contactStore.contact.socials === "object" ?
+						(contactStore.contact.socials.hasOwnProperty('viber') &&
+							(<Descriptions.Item label="Viber">
+								<Link href={`${contactStore.contact.socials.viber}`}>{contactStore.contact.socials.viber}</Link>
+							</Descriptions.Item>)) || (
+						contactStore.contact.socials.hasOwnProperty('telegram') &&
+						(<Descriptions.Item label="Telegram">
+							<Link href={`${contactStore.contact.socials.telegram}`}>{contactStore.contact.socials.telegram}</Link>
+						</Descriptions.Item>)) || (
+						contactStore.contact.socials.hasOwnProperty('whatsapp') &&
+						(<Descriptions.Item label="Whatsapp">
+							<Link href={`${contactStore.contact.socials.whatsapp}`}>{contactStore.contact.socials.whatsapp}</Link>
+						</Descriptions.Item>)) || (
+						contactStore.contact.socials.hasOwnProperty('instagram') &&
+						(<Descriptions.Item label="Instagram">
+							<Link href={`${contactStore.contact.socials.instagram}`}>{contactStore.contact.socials.instagram}</Link>
+						</Descriptions.Item>)) || (
+						contactStore.contact.socials.hasOwnProperty('facebook') &&
+						(<Descriptions.Item label="Facebook">
+							<Link href={`${contactStore.contact.socials.facebook}`}>{contactStore.contact.socials.facebook}</Link>
+						</Descriptions.Item>)) || (
+						contactStore.contact.socials.hasOwnProperty('twitter') &&
+						(<Descriptions.Item label="Twitter">
+							<Link href={`${contactStore.contact.socials.twitter}`}>{contactStore.contact.socials.twitter}</Link>
+						</Descriptions.Item>)) || (
+						contactStore.contact.socials.hasOwnProperty('linkedin') &&
+						(<Descriptions.Item label="LinkedIn">
+							<Link href={`${contactStore.contact.socials.linkedin}`}>{contactStore.contact.socials.linkedin}</Link>
+						</Descriptions.Item>)) : null}
 					<Descriptions.Item label="Створено">
 						{contactStore.contact.created_at}
 					</Descriptions.Item>
 				</Descriptions>
 			</Col>
-			<Col span={16} style={{marginBottom: "30px"}}>
+			<Col span={11}>
+				<ClientCommunications type="contact" id={id} />
+			</Col>
+			<Col span={23} style={{marginBottom: "30px"}}>
 				<Button type="primary" disabled={contactStore.state === "loading"} loading={contactStore.state === "loading"}
 				        onClick={() => edit()} style={{marginRight: "15px"}}>
 					Редагувати

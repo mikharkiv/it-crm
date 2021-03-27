@@ -10,6 +10,7 @@ import TaskComments from "../tasks/TaskComments";
 import TasksPage from "../tasks/TasksPage";
 import DocumentsPage from "../documents/DocumentsPage";
 import {runInAction} from "mobx";
+import ClientCommunications from "../clients/communications/ClientCommunications";
 
 const {Title, Text} = Typography;
 const {TabPane} = Tabs;
@@ -83,6 +84,9 @@ const ProjectPage = () => {
 					</TabPane>
 					<TabPane key="3" tab="Документи">
 						<DocumentsPage filters={{project: projectStore.project.id}}/>
+					</TabPane>
+					<TabPane key="4" tab="Комунікації" style={{paddingBottom: "40px"}}>
+						<ClientCommunications type="project" id={id}/>
 					</TabPane>
 				</Tabs>
 			</Col>
