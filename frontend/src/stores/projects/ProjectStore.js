@@ -31,4 +31,8 @@ export class ProjectStore {
 				} else this.state = "error";
 			})
 	}
+
+	get isBudgetOverspent() {
+		return (this.project.budget && this.project.budget < this.project.tasks_budget);
+	}
 }

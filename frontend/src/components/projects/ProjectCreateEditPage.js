@@ -1,6 +1,6 @@
 import {useHistory} from "react-router";
 import {useStores} from "../../hooks/use-stores";
-import {Button, Col, Form, Input, message, Row, Typography} from "antd";
+import {Button, Col, Form, Input, InputNumber, message, Row, Typography} from "antd";
 import LoadingIcon from "../LoadingIcon";
 import {useEffect, useMemo} from "react";
 import {observer} from "mobx-react";
@@ -38,6 +38,9 @@ const ContactCreateEditPage = (props) => {
 				</Form.Item>
 				<Form.Item label="Опис" name="description" rules={[{required: true, message: 'Введіть опис'}]}>
 					<Input placeholder="Опис проєкту..."/>
+				</Form.Item>
+				<Form.Item label="Бюджет" name="budget" rules={[{required: true, message: 'Введіть бюджет'}]}>
+					<InputNumber precision={0.01} placeholder="Бюджет проєкту..."/>
 				</Form.Item>
 				<Form.Item name="client" label="Вибрати клієнта"  rules={[{required: true, message: 'Виберіть клієнта'}]}>
 					<ClientAutocomplete />

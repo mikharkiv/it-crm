@@ -11,6 +11,7 @@ import TasksPage from "../tasks/TasksPage";
 import DocumentsPage from "../documents/DocumentsPage";
 import {runInAction} from "mobx";
 import ClientCommunications from "../clients/communications/ClientCommunications";
+import {ExclamationOutlined} from "@ant-design/icons";
 
 const {Title, Text} = Typography;
 const {TabPane} = Tabs;
@@ -49,6 +50,8 @@ const ProjectPage = () => {
 						) :
 						(<Text type="danger" strong>Немає задач</Text>)
 				}
+				<br/>
+				{projectStore.isBudgetOverspent && (<Text type="danger" strong>Бюджет перевищено</Text>)}
 			</Col>
 			<Col span={22}>
 				<Tabs defaultActiveKey="1" centered>
@@ -57,6 +60,12 @@ const ProjectPage = () => {
 							<Col span={11}>
 								<Space direction="vertical">
 									<Text className="project-card-text">{projectStore.project.description}</Text>
+									<Text>
+										<Text strong>{projectStore.isBudgetOverspent && <ExclamationOutlined/>}Бюджет: </Text>
+										{projectStore.isBudgetOverspent ? (
+											<Text type="danger" strong>{projectStore.project.budget}</Text>
+										) : (<Text>{projectStore.project.budget}</Text>)}
+									</Text>
 									<Text><Text strong>Команда: </Text>{projectStore.project.team.name}</Text>
 									<Text strong>Клієнт: </Text>
 									<UserBar size="small" name={projectStore.project.client.name}

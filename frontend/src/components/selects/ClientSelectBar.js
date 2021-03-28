@@ -53,7 +53,7 @@ const ClientAutocomplete = (props) => {
 		              value={localVal.value} >
 			{ store.variants.map((e) => (
 				<AutoComplete.Option key={e.id} value={e.name}>
-					<UserBar size="small" name={e.name} avatar={e.image}/>
+					<UserBar size="small" name={e.name} avatar={e.photo}/>
 				</AutoComplete.Option>
 			))}
 		</AutoComplete>

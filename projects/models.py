@@ -20,8 +20,8 @@ class Project(models.Model):
 		return ProjectTask.objects.filter(project=self).exists()
 
 	def is_finished(self):
-		return self.has_tasks() and not filter(lambda t: not t.is_completed(),
-												   ProjectTask.objects.filter(project=self).all())
+		return self.has_tasks() and not len(list(filter(lambda t: not t.is_completed(),
+												   ProjectTask.objects.filter(project=self).all()))) > 0
 
 	def tasks_budget(self):
 		return ProjectTask.objects.filter(project=self).all().aggregate(models.Sum('budget'))['budget__sum'] or 0
