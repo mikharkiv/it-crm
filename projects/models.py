@@ -6,6 +6,7 @@ from tasks.models import ProjectTask
 class Project(models.Model):
 	name = models.CharField(max_length=200)
 	description = models.TextField(max_length=2000)
+	budget = models.DecimalField(max_digits=18, decimal_places=2)
 	team = models.ForeignKey('teams.Team', on_delete=models.RESTRICT, related_name='projects')
 	client = models.ForeignKey('clients.Client', on_delete=models.CASCADE, related_name='projects')
 
@@ -21,6 +22,9 @@ class Project(models.Model):
 	def is_finished(self):
 		return self.has_tasks() and not filter(lambda t: not t.is_completed(),
 												   ProjectTask.objects.filter(project=self).all())
+
+	def tasks_budget(self):
+		return ProjectTask.objects.filter(project=self).all().aggregate(models.Sum('budget'))['budget__sum'] or 0
 
 	class Meta:
 		ordering = ['-created_at', 'name']

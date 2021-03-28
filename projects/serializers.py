@@ -16,9 +16,13 @@ class ProjectTeamClientSerializer(ProjectSerializer):
 	client = ClientSerializer()
 	has_tasks = serializers.SerializerMethodField()
 	is_finished = serializers.SerializerMethodField()
+	tasks_budget = serializers.SerializerMethodField()
 
 	def get_has_tasks(self, obj):
 		return obj.has_tasks()
 
 	def get_is_finished(self, obj):
 		return obj.is_finished()
+
+	def get_tasks_budget(self, obj):
+		return obj.tasks_budget()
