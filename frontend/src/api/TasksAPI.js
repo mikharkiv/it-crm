@@ -38,7 +38,7 @@ export class TasksAPI {
 
 	static async removeTask(id){
 		return await Api.fetch(`${this.apiUrl}${id}/`, Api.delete)
-			.then((r) => r.json())
+			.then((r) => (r.status === 204 ? {} : "error"))
 			.catch(() => "error");
 	};
 
