@@ -2,7 +2,7 @@ import {action, makeAutoObservable, runInAction} from "mobx";
 import {AutoComplete} from "antd";
 import UserBar from "./../UserBar";
 import {observer} from "mobx-react";
-import {useMemo, useState} from "react";
+import {useMemo, useState, useEffect} from "react";
 import {UsersAPI} from "../../api/UsersAPI";
 
 export class UserAutocompleteStore {
@@ -44,6 +44,9 @@ const UserAutocomplete = (props) => {
 	const [localVal, setLocalVal] = useState(props.value ? {value: props.value.value, key: props.value.key} :
 		{value: '', key: null});
 
+	useEffect(() => props.onChange && props.value.key && props.onChange(props.value.key),
+		[props, props.value, props.onChange]);
+
 	const onChange = (val) => {
 		store.onChange(val);
 		setLocalVal({value: val, key: null});
@@ -54,19 +57,6 @@ const UserAutocomplete = (props) => {
 		if (props.onChange) props.onChange(option.key);
 		if (props.onSelect) props.onSelect(val, option);
 	}
-
-	// const [val, setVal] = useState('');
-	//
-	// const onValChange = (v) => {
-	// 	setVal(v);
-	// 	runInAction(() => store.onChange(v));
-	// }
-	//
-	// const onSelect = (k, o) => {
-	// 	if (props.clearAfterSelect)
-	// 		setVal('');
-	// 	runInAction(() => props.onSelect(k, o));
-	// }
 
 	return (
 		<AutoComplete placeholder="Почніть писати, щоб побачити варіанти..."

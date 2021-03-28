@@ -35,6 +35,9 @@ const ClientAutocomplete = (props) => {
 	const [localVal, setLocalVal] = useState(props.value ? {value: props.value.value, key: props.value.key} :
 		{value: '', key: null});
 
+	useEffect(() => props.onChange && props.value.key && props.onChange(props.value.key),
+		[props, props.value, props.onChange]);
+
 	const onChange = (val) => {
 		store.onChange(val);
 		setLocalVal({value: val, key: null});

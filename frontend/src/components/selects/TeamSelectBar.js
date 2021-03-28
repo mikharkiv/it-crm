@@ -1,7 +1,7 @@
 import {makeAutoObservable} from "mobx";
 import {AutoComplete} from "antd";
 import {observer} from "mobx-react";
-import {useMemo, useState} from "react";
+import {useMemo, useState, useEffect} from "react";
 import {TeamsAPI} from "../../api/TeamsAPI";
 
 class TeamAutocompleteStore {
@@ -33,6 +33,9 @@ const TeamAutocomplete = (props) => {
 	const store = useMemo(() => new TeamAutocompleteStore(), []);
 	const [localVal, setLocalVal] = useState(props.value ? {value: props.value.value, key: props.value.key} :
 		{value: '', key: null});
+
+	useEffect(() => props.onChange && props.value.key && props.onChange(props.value.key),
+		[props, props.value, props.onChange]);
 
 	const onChange = (val) => {
 		store.onChange(val);
