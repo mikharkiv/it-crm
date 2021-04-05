@@ -28,6 +28,7 @@ import TasksView from "./tasks/TasksView";
 import ClientsView from "./clients/ClientsView";
 import StatsPage from "./stats/StatsPage";
 import {runInAction} from "mobx";
+import WelcomePage from "./WelcomePage";
 
 const { Content, Sider } = Layout;
 
@@ -68,6 +69,7 @@ const MainDeveloperLayout = () => {
 						<Route path={`${path}teams`} component={TeamsView}/>
 						<Route path={`${path}projects`} component={ProjectsView}/>
 						<Route path={`${path}tasks`} component={TasksView}/>
+						<Route path={``} component={WelcomePage}/>
 					</Switch>
 				</div>
 			</Content>

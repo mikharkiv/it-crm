@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from "mobx";
+import {makeAutoObservable} from "mobx";
 import {Api} from "../api/Api";
 import {UsersAPI} from "../api/UsersAPI";
 import {message} from "antd";
@@ -33,7 +33,9 @@ export class RootStore {
 			},
 			body: JSON.stringify({token})
 		}).then((r) => {
-			if (r.ok) {
+			if (!r) {
+				this.isApiAvailable = false;
+			} else if (r.ok) {
 				this.errorLoggingIn = false;
 				this.isLoggedIn = true;
 			}
@@ -53,8 +55,10 @@ export class RootStore {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email: email, password: password})
 		}).then((r) => {
-			if (r.ok)
-				return r.json()
+			if (!r) {
+				this.isApiAvailable = false;
+			} else if (r.ok)
+				return r.json();
 			else {
 				this.isLoggedIn = false;
 				this.errorLoggingIn = true;
