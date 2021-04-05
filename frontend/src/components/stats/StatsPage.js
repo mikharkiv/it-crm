@@ -31,7 +31,7 @@ const StatsPage = () => {
 					<Statistic title="Задач з вами" value={statsStore.stats.tasks_count}/>
 				</Col>
 			</Row>
-			<Row justify="center">
+			<Row justify="center" style={{marginBottom: '30px'}}>
 				<Col span={6}>
 					<Statistic title="Задач, створених вами" value={statsStore.stats.tasks_created_count}/>
 				</Col>
@@ -40,6 +40,14 @@ const StatsPage = () => {
 				</Col>
 				<Col span={6}>
 					<Statistic title="Документів, створених вами" value={statsStore.stats.documents_count}/>
+				</Col>
+			</Row>
+			<Row justify="center" style={{marginBottom: '30px'}}>
+				<Col span={6}>
+					<Statistic title="Задач, створених вами, на суму" value={`${statsStore.stats.tasks_budget} грн`}/>
+				</Col>
+				<Col span={6}>
+					<Statistic title="Проєктів ваших клієнтів на суму" value={`${statsStore.stats.projects_budget} грн`}/>
 				</Col>
 			</Row>
 		</>

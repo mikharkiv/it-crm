@@ -1,3 +1,4 @@
+from django.db import models
 from django_filters import FilterSet
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
@@ -6,6 +7,7 @@ from rest_framework.response import Response
 from advice.models import Advice
 from clients.models import Client
 from documents.models import Document
+from projects.models import Project
 from tasks.models import ProjectTask
 from .serializers import CRMUserSerializer
 from .models import CRMUser
@@ -40,4 +42,6 @@ def get_my_stats(request):
 	stats['tasks_created_count'] = ProjectTask.objects.filter(author=user).count()
 	stats['teams_count'] = user.teams.count()
 	stats['documents_count'] = Document.objects.filter(author=user).count()
+	stats['tasks_budget'] = ProjectTask.objects.filter(author=user).aggregate(models.Sum('budget'))['budget__sum'] or 0
+	stats['projects_budget'] = Project.objects.filter(client__manager=user).aggregate(models.Sum('budget'))['budget__sum'] or 0
 	return Response(stats)
