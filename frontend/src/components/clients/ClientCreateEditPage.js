@@ -27,7 +27,7 @@ const ClientCreateEditPage = (props) => {
 	}
 
 	return (
-		store.state === "loading" ? (<LoadingIcon/>) : (
+		store.state !== "done" ? (<LoadingIcon/>) : (
 			<Form layout="vertical" style={{margin: "10px 0 30px"}}
 			      onFinish={(obj) => {props.editMode ? store.saveClient(obj, callback) : store.addClient(obj, callback)}}
 			      initialValues={store.client}>

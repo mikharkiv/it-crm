@@ -26,7 +26,7 @@ const ContactCreateEditPage = (props) => {
 	}
 
 	return (
-		store.state === "loading" ? (<LoadingIcon/>) : (
+		store.state !== "done" ? (<LoadingIcon/>) : (
 			<Form layout="vertical" style={{margin: "10px 0 30px"}}
 			      onFinish={(obj) => {props.editMode ? store.saveContact(obj, callback) : store.addContact(obj, callback)}}
 			      initialValues={store.contact}>

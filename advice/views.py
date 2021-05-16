@@ -9,7 +9,9 @@ class AdviceViewSet(viewsets.ModelViewSet):
 	search_fields = ['name', 'theme', 'text', 'author__first_name', 'author__last_name']
 
 	def get_serializer_class(self):
-		if self.action == "list" or self.action == "retrieve":
+		if self.action == "list":
+			return AdviceListSerializer
+		elif self.action == "retrieve":
 			return AdviceUserSerializer
 		return AdviceSerializer
 
@@ -24,7 +26,9 @@ class AdviceCommentViewSet(viewsets.ModelViewSet):
 	search_fields = ['text', 'author__first_name', 'author__last_name']
 
 	def get_serializer_class(self):
-		if self.action == "list" or self.action == "retrieve":
+		if self.action == "list":
+			return AdviceCommentListSerializer
+		elif self.action == "retrieve":
 			return AdviceCommentUserSerializer
 		return AdviceCommentSerializer
 

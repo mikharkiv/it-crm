@@ -14,7 +14,7 @@ class Advice(models.Model):
 		ordering = ['-created_at', 'name']
 
 	def get_short_text(self):
-		return truncatechars(self.text, 100)
+		return truncatechars(self.text, 200)
 
 	def __str__(self):
 		return f"{self.name} by {self.author.get_full_name()}"

@@ -36,7 +36,7 @@ const AdviceSinglePage = () => {
 					         style={{marginBottom: "50px"}} />
 				</Col>
 				<Col span={16}>
-					<p style={{marginBottom: "50px"}}><br/>{adviceStore.advice.text}</p>
+					<p style={{marginBottom: "50px"}}><br/>{adviceStore.advice.text.split('\n').map((e) => (<p>{e}</p>))}</p>
 				</Col>
 			</Row>
 			<Row justify="center">
