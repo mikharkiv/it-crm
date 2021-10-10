@@ -1,0 +1,9 @@
+.user-bar {
+  display: flex;
+  align-items: center;
+}
+.user-bar .ant-avatar {
+  margin-right: 10px;
+}
+
+/*# sourceMappingURL=UserBar.css.map */

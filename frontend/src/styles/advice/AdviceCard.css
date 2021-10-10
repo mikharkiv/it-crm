@@ -1,0 +1,12 @@
+.advice-card {
+  display: block;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+}
+.advice-card .user-bar {
+  margin-top: 20px;
+}
+
+/*# sourceMappingURL=AdviceCard.css.map */

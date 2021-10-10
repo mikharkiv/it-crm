@@ -1,0 +1,44 @@
+.client-communications {
+  min-height: 80vh;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+.client-communications-list {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 0 10px;
+  margin: 10px 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+}
+.client-communications-no-add {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+}
+.client-communications-comment {
+  margin-bottom: 20px;
+}
+.client-communications-comment-tag {
+  display: flex;
+  flex-direction: row;
+  width: min-content;
+  align-items: center;
+  justify-content: center;
+  margin: 2px 0;
+  line-height: 1.35em;
+}
+.client-communications-comment-tag > span {
+  margin-left: 4px;
+}
+.client-communications-comment .ant-comment-inner {
+  padding-bottom: 0;
+}
+.client-communications-comment .ant-comment-nested {
+  margin-top: -10px;
+}
+
+/*# sourceMappingURL=ClientCommunications.css.map */
